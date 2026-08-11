@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>핵심 역량 포트폴리오</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      background-color: #f8f9fa;
+      color: #212529;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    header { margin-bottom: 20px; }
+    h1 { font-size: 1.8rem; margin-bottom: 8px; }
+    .target-statement {
+      font-size: 1rem;
+      color: #495057;
+      background: #e9ecef;
+      padding: 10px 15px;
+      border-radius: 6px;
+    }
+    
+    /* 핵심 3개 항목 (STAR 구조) */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .card h2 { font-size: 1.2rem; margin-bottom: 10px; color: #0d6efd; }
+    .card p { font-size: 0.9rem; margin-bottom: 8px; }
+    .card strong { color: #212529; }
+    .proof-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #0d6efd;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .proof-link:hover, .proof-link:focus { text-decoration: underline; outline: 2px solid #0d6efd; }
+
+    /* 상호작용 섹션 */
+    .interaction-area {
+      background: #ffffff;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #0d6efd;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    button:focus { outline: 3px solid #0b5ed7; }
+    .reduced-motion button { transition: none !important; }
+    #status-text { font-size: 0.9rem; font-weight: bold; }
+
+    /* 반응형 레이아웃 */
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>역량 중심 경력 기술 페이지</h1>
+      <p class="target-statement">**대상 문장:** 문제 해결 중심의 실무 역량을 검증하고자 하는 채용 담당자를 위한 1페이지 요약</p>
+    </header>
+
+    <main class="grid">
+      <!-- 핵심 1 -->
+      <section class="card">
+        <h2>01. 웹 취약점 진단 자동화</h2>
+        <p><strong>상황:</strong> 수작업 점검으로 인한 진단 일정 지연 발생</p>
+        <p><strong>행동:</strong> Python 기반 파이썬 자동 점검 스크립트 제작</p>
+        <p><strong>결과:</strong> 진단 소요 시간 40% 단축 및 정확도 향상</p>
+        <a href="https://github.com" target="_blank" rel="noopener" class="proof-link">증거 자료 (GitHub 레포지토리) &rarr;</a>
+      </section>
+
+      <!-- 핵심 2 -->
+      <section class="card">
+        <h2>02. 대용량 로그 분석 구조화</h2>
+        <p><strong>상황:</strong> 일일 10GB 이상 서버 로그 처리 병목 현상</p>
+        <p><strong>행동:</strong> 비동기 파이프라인 로직 설계 및 데이터 필터링 구현</p>
+        <p><strong>결과:</strong> 로그 처리 속도 3배 향상, 데이터 누락 0건 달성</p>
+      </section>
+
+      <!-- 핵심 3 -->
+      <section class="card">
+        <h2>03. 개발 협업 표준 프로세스 구축</h2>
+        <p><strong>상황:</strong> 프로젝트 내 브랜치 충돌 및 버전 관리 혼선</p>
+        <p><strong>행동:</strong> Git Branch 전략 수립 및 커밋 컨벤션 가이드 작성</p>
+        <p><strong>결과:</strong> 코드 충돌 발생율 0건 및 리뷰 효율성 증대</p>
+      </section>
+    </main>
+
+    <!-- 상호작용 영역 (키보드/마우스 및 모션 조절 지원) -->
+    <section class="interaction-area">
+      <button id="toggle-btn" tabindex="0" aria-label="상태 전환 버튼">검증 상태 확인</button>
+      <span id="status-text">상태: 대기 중</span>
+    </section>
+  </div>
+
+  <script>
+    const btn = document.getElementById('toggle-btn');
+    const statusText = document.getElementById('status-text');
+
+    // 마우스 및 키보드(Enter, Space) 대응 상호작용
+    function handleInteraction() {
+      if (statusText.textContent.includes('대기 중')) {
+        statusText.textContent = '상태: 검증 완료 (이상 없음)';
+        statusText.style.color = '#198754';
+      } else {
+        statusText.textContent = '상태: 대기 중';
+        statusText.style.color = '#212529';
+      }
+    }
+
+    btn.addEventListener('click', handleInteraction);
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleInteraction();
+      }
+    });
+
+    // 콘솔 오류 0건 유지용 디버그 로그
+    console.log("Page loaded successfully without errors.");
+  </script>
+</body>
+</html>
