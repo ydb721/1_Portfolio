@@ -180,18 +180,23 @@
 
     /* 카드 본문 콘텐츠 및 힌트 태그 */
     .star-card-body {
-      padding: 16px 18px;
+      padding: 14px 16px;
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
 
     .star-desc {
-      font-size: 14.5px;
+      font-size: 13px;
       color: var(--text-sub);
-      line-height: 1.6;
+      line-height: 1.5;
       font-weight: 500;
+      margin: auto 0; /* 위아래 여백을 동일하게 배분하여 수직 중앙 정렬 */
+    }
+
+    /* 첫 화면(카드 앞면) 텍스트 가로 중앙 정렬 */
+    .card-front .star-desc {
+      text-align: center;
     }
 
     .flip-hint {
@@ -199,14 +204,14 @@
       align-items: center;
       justify-content: center;
       gap: 4px;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 700;
       color: #4f46e5;
       background: rgba(255, 255, 255, 0.6);
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 20px;
       align-self: flex-end;
-      margin-top: 8px;
+      margin-top: 6px;
       border: 1px solid #c7d2fe;
     }
 
@@ -250,20 +255,20 @@
             </div>
             <div class="star-card-body">
               <p class="star-desc">
-                철저한 사전 준비와 여유 시간 확보를 통한 약속 시간 엄수함
+                정해진 목표와 지킬 일수를 완수하며, 한 번 시작한 작업은 끝까지 책임감 있게 완성하는 편임.
               </p>
               <span class="flip-hint">에피소드 보기 🔄</span>
             </div>
           </div>
           <div class="card-back">
             <div class="star-card-header">
-              <h3><span class="highlighter-text">성실함</span> (실제 사례)</h3>
+              <h3><span class="highlighter-text">성실함</span> (상세 내용)</h3>
             </div>
             <div class="star-card-body">
               <p class="star-desc">
-                등교나 중요한 약속 시 예상치 못한 변수로 인해 약속 시간에 늦거나 간신히 도착할 위험에 직면함. 
-      이를 예방하고자 평소보다 20분 일찍 나가는 습관을 들이고, 전날 밤 미리 소지품과 이동 동선을 챙기며 돌발 상황에 대비한 대체 버스 노선까지 사전에 준비함. 
-      그 결과 갑작스러운 교통 체증이나 변수가 발생해도 당황하지 않고 항상 약속 시간 10분 전에 여유 있게 도착함.
+                등교나 중요한 약속 시 예상치 못한 변수로 지각할 위험에 직면함.<br>
+                평소보다 20분 일찍 나가는 습관을 들이고 전날 소지품과 동선을 챙기며 대체 버스 노선을 사전에 준비함.<br>
+                갑작스러운 변수가 생겨도 당황하지 않고 항상 약속 시간 10분 전에 여유 있게 도착함.
               </p>
               <span class="flip-hint">돌아가기 ↩️</span>
             </div>
@@ -281,20 +286,20 @@
             </div>
             <div class="star-card-body">
               <p class="star-desc">
-                복잡하고 낯선 개념을 주제별로 체계적으로 분류하여 학습 효율을 극대화함
+                복잡한 정보나 처음 접하는 지식을 요약하고, 카테고리별로 체계적으로 정돈하는 것을 선호함.
               </p>
               <span class="flip-hint">에피소드 보기 🔄</span>
             </div>
           </div>
           <div class="card-back">
             <div class="star-card-header">
-              <h3><span class="highlighter-text">정리하기</span> (실제 사례)</h3>
+              <h3><span class="highlighter-text">정리하기</span> (상세 내용)</h3>
             </div>
             <div class="star-card-body">
               <p class="star-desc">
-                새로운 과목을 처음 접할 때 용어가 낯설고 내용이 복잡해 단번에 이해하는 데 어려움을 겪음. 
-      이를 해결하고자 배운 내용을 주제별로 깔끔하게 분류하고 핵심 키워드 중심의 요약 노트를 만들어 한눈에 들어오게 정돈함. 
-      덕분에 복습 시 원하는 내용을 즉시 찾아 확인할 수 있게 되었으며, 개념을 재검색하는 번거로움을 줄여 학습 시간을 크게 단축함.
+                새로운 과목을 공부할 때 용어가 낯설고 내용이 복잡해 이해하기 어려움을 겪음.<br>
+                배운 내용을 주제별로 분류하고 핵심 키워드 중심의 요약 노트를 만들어 정돈함.<br>
+                복습 시 필요한 개념을 즉시 찾아 확인할 수 있게 되어 학습 시간을 크게 단축함.
               </p>
               <span class="flip-hint">돌아가기 ↩️</span>
             </div>
@@ -312,20 +317,20 @@
             </div>
             <div class="star-card-body">
               <p class="star-desc">
-                미세한 오탈자와 서식 균형까지 다각도로 점검하여 높은 완성도를 도출함
+                전체적인 흐름을 유지하면서도 남들이 놓치기 쉬운 세부 오차나 미세한 부분을 세심하게 짚어냄.
               </p>
               <span class="flip-hint">에피소드 보기 🔄</span>
             </div>
           </div>
           <div class="card-back">
             <div class="star-card-header">
-              <h3><span class="highlighter-text">디테일</span> (실제 사례)</h3>
+              <h3><span class="highlighter-text">디테일</span> (상세 내용)</h3>
             </div>
             <div class="star-card-body">
               <p class="star-desc">
-                중요한 문서나 보고서 작성 시 눈에 잘 띄지 않는 오탈자나 어색한 문장 표현으로 인해 문서의 전체적인 완성도가 떨어질 위험에 직면함. 
-      이를 방지하기 위해 문맥과 맞춤법을 여러 번 재검토하고, 폰트 크기·줄 간격·문단 정렬 같은 미세한 서식 요소까지 꼼꼼하게 통일하여 점검함. 
-      결과적으로 오탈자 없는 완벽한 결실을 얻고, 가독성이 뛰어난 깔끔한 문서를 완성하여 제출함.
+                중요 문서 작성 시 눈에 잘 띄지 않는 오탈자나 어색한 문장 표현으로 완성도가 떨어질 위험을 확인함.<br>
+                문맥과 맞춤법을 재검토하고 폰트 크기, 줄 간격, 문단 정렬까지 통일하여 점검함.<br>
+                오탈자 없는 완벽한 결과물을 완성하고 가독성 높은 문서를 작성함.
               </p>
               <span class="flip-hint">돌아가기 ↩️</span>
             </div>
@@ -346,15 +351,12 @@
     const cards = document.querySelectorAll('.star-card');
 
     cards.forEach(card => {
-      // 뒤집기 토글 함수
       function toggleFlip() {
         card.classList.toggle('is-flipped');
       }
 
-      // 마우스 클릭 이벤트
       card.addEventListener('click', toggleFlip);
 
-      // 키보드 접근성 (Enter, Space 키 대응)
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
