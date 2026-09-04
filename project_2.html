@@ -15,74 +15,71 @@
     }
   </style>
 </head>
-<body class="bg-white text-slate-800 min-h-screen flex flex-col items-center justify-center p-2 sm:p-4 overflow-x-hidden">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col items-center justify-center p-2 sm:p-4 overflow-x-hidden">
 
   <div class="w-full max-w-5xl flex flex-col gap-3">
     
-    <!-- Top Header & HUD Bar -->
-    <header class="bg-white border border-slate-200 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col gap-3">
+    <!-- Top Header & HUD Bar (Pastel Green Theme) -->
+    <header class="bg-emerald-50/80 border border-emerald-200/60 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col gap-3">
       
       <!-- Top Row: Title/Player Info on left, Top Action Controls on right -->
       <div class="flex items-center justify-between w-full">
-        <!-- Left: Title & Player Name -->
+        <!-- Left: Title -->
         <div class="flex items-center gap-3">
           <div class="flex items-center gap-2">
             <span class="text-2xl">🏃‍♂️‍➡️</span>
-            <h1 class="text-lg sm:text-xl font-black tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">RUNNER</h1>
-          </div>
-          <div class="text-xs text-slate-500 hidden sm:block">
-            플레이어: <span id="ui-player-name" class="text-slate-800 font-semibold">대기 중</span>
+            <h1 class="text-lg sm:text-xl font-black tracking-wider bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Runner</h1>
           </div>
         </div>
 
-        <!-- Right Top Action Controls (HOME, BGM, PAUSE) -->
+        <!-- Right Top Action Controls (HOME, BGM, PAUSE) with strict uniform sizing -->
         <div class="flex items-center gap-2">
-          <button id="btn-home-top" onclick="returnToHome()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 active:scale-95 text-xs font-bold text-slate-700 rounded-lg border border-slate-200 transition">
+          <button id="btn-home-top" onclick="returnToHome()" class="w-20 h-9 bg-white hover:bg-emerald-100/60 active:scale-95 text-xs font-bold text-slate-700 rounded-lg border border-emerald-200 transition flex items-center justify-center shadow-sm">
             HOME
           </button>
-          <button id="btn-audio" onclick="toggleAudio()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 active:scale-95 text-xs font-bold text-slate-700 rounded-lg border border-slate-200 transition relative flex items-center gap-1">
+          <button id="btn-audio" onclick="toggleAudio()" class="w-20 h-9 bg-white hover:bg-emerald-100/60 active:scale-95 text-xs font-bold text-slate-700 rounded-lg border border-emerald-200 transition relative flex items-center justify-center gap-1 shadow-sm">
             <span>🔊 BGM</span>
             <span id="bgm-slash" class="absolute inset-0 flex items-center justify-center text-red-500 font-extrabold text-xl pointer-events-none hidden">╲</span>
           </button>
-          <button id="btn-pause" onclick="togglePause()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 active:scale-95 text-xs font-bold text-slate-700 rounded-lg border border-slate-200 transition">
+          <button id="btn-pause" onclick="togglePause()" class="w-20 h-9 bg-white hover:bg-emerald-100/60 active:scale-95 text-xs font-bold text-slate-700 rounded-lg border border-emerald-200 transition flex items-center justify-center shadow-sm">
             PAUSE
           </button>
         </div>
       </div>
 
       <!-- Bottom Row: HUD Indicators Centered -->
-      <div class="flex items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm font-semibold bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 w-full overflow-x-auto">
+      <div class="flex items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm font-semibold bg-white/80 px-3 py-2 rounded-xl border border-emerald-100 w-full overflow-x-auto shadow-sm">
         <div class="text-center px-2">
           <div class="text-[10px] text-slate-400">달린 거리</div>
-          <div class="text-blue-600 font-bold text-sm sm:text-base"><span id="ui-distance">0</span>m</div>
+          <div class="text-emerald-700 font-bold text-sm sm:text-base"><span id="ui-distance">0</span>m</div>
         </div>
-        <div class="h-6 w-px bg-slate-300"></div>
+        <div class="h-6 w-px bg-emerald-200"></div>
         <div class="text-center px-2">
           <div class="text-[10px] text-slate-400">남은 시간</div>
-          <div class="text-emerald-600 font-bold text-sm sm:text-base"><span id="ui-timer">30.0</span>s</div>
+          <div class="text-teal-700 font-bold text-sm sm:text-base"><span id="ui-timer">30.0</span>s</div>
         </div>
-        <div class="h-6 w-px bg-slate-300"></div>
+        <div class="h-6 w-px bg-emerald-200"></div>
         <div class="text-center px-2">
           <div class="text-[10px] text-slate-400">점수</div>
-          <div class="text-indigo-600 font-bold text-sm sm:text-base"><span id="ui-score">0</span></div>
+          <div class="text-emerald-800 font-bold text-sm sm:text-base"><span id="ui-score">0</span></div>
         </div>
-        <div class="h-6 w-px bg-slate-300"></div>
+        <div class="h-6 w-px bg-emerald-200"></div>
         <div class="text-center px-2">
           <div class="text-[10px] text-slate-400">난이도</div>
-          <div class="text-rose-600 font-bold text-sm sm:text-base">
+          <div class="text-emerald-600 font-bold text-sm sm:text-base">
             <span id="ui-diff-badge">NORMAL</span>
           </div>
         </div>
       </div>
     </header>
 
-    <main class="relative w-full h-[380px] sm:h-[460px] bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm" id="canvas-container">
+    <main class="relative w-full h-[380px] sm:h-[460px] bg-gradient-to-b from-emerald-50 to-teal-100 border border-emerald-200 rounded-2xl overflow-hidden shadow-md" id="canvas-container">
       
       <!-- Interactive Game Canvas -->
       <canvas id="gameCanvas" class="w-full h-full block cursor-pointer"></canvas>
 
       <!-- Toast Notification Message Banner -->
-      <div id="event-message" class="absolute top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white font-bold px-4 py-2 rounded-full shadow-md text-xs sm:text-sm transition-opacity duration-300 opacity-0 pointer-events-none z-20 whitespace-nowrap">
+      <div id="event-message" class="absolute top-4 left-1/2 -translate-x-1/2 bg-emerald-700 text-white font-bold px-4 py-2 rounded-full shadow-md text-xs sm:text-sm transition-opacity duration-300 opacity-0 pointer-events-none z-20 whitespace-nowrap">
         알림 메시지
       </div>
 
@@ -97,44 +94,44 @@
       </div>
 
       <!-- START / HOME OVERLAY -->
-      <div id="start-overlay" class="absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center z-30">
+      <div id="start-overlay" class="absolute inset-0 bg-emerald-50/95 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center z-30">
         <div class="text-4xl mb-2">🏃‍♂️‍➡️</div>
-        <h2 class="text-3xl sm:text-4xl font-black tracking-widest bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-1">RUNNER</h2>
-        <p class="text-xs text-slate-400 mb-4 max-w-md tracking-wider">
+        <h2 class="text-3xl sm:text-4xl font-black tracking-widest bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-1">Runner</h2>
+        <p class="text-xs text-slate-500 mb-4 max-w-md tracking-wider">
           ULTIMATE SIDE-SCROLLING SURVIVAL
         </p>
 
         <!-- Player Name Input -->
         <div class="w-full max-w-xs mb-3 text-left">
           <label class="block text-xs font-semibold text-slate-600 mb-1">플레이어 :</label>
-          <input type="text" id="player-name-input" placeholder="이름" maxlength="10" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-center text-slate-800 placeholder:text-slate-300 focus:outline-none focus:border-blue-500 transition" />
+          <input type="text" id="player-name-input" placeholder="이름" maxlength="10" class="w-full bg-white border border-emerald-200 rounded-lg px-3 py-2 text-sm text-center text-slate-800 placeholder:text-slate-300 focus:outline-none focus:border-emerald-500 transition" />
         </div>
 
         <!-- Difficulty Selection UI -->
         <div class="w-full max-w-xs mb-3 text-left">
           <label class="block text-xs font-semibold text-slate-600 mb-1">난이도 :</label>
           <div class="grid grid-cols-3 gap-2" id="difficulty-selector">
-            <button type="button" onclick="selectDifficulty('EASY')" id="diff-btn-EASY" class="py-2 px-1 rounded-lg border text-xs font-bold transition border-slate-200 bg-slate-50 text-slate-600 hover:border-emerald-500">EASY</button>
-            <button type="button" onclick="selectDifficulty('NORMAL')" id="diff-btn-NORMAL" class="py-2 px-1 rounded-lg border text-xs font-bold transition border-blue-500 bg-blue-50 text-blue-600">NORMAL</button>
-            <button type="button" onclick="selectDifficulty('HARD')" id="diff-btn-HARD" class="py-2 px-1 rounded-lg border text-xs font-bold transition border-slate-200 bg-slate-50 text-slate-600 hover:border-rose-500">HARD</button>
+            <button type="button" onclick="selectDifficulty('EASY')" id="diff-btn-EASY" class="py-2 px-1 rounded-lg border text-xs font-bold transition border-emerald-200 bg-white text-slate-600 hover:border-emerald-500">EASY</button>
+            <button type="button" onclick="selectDifficulty('NORMAL')" id="diff-btn-NORMAL" class="py-2 px-1 rounded-lg border text-xs font-bold transition border-emerald-500 bg-emerald-100 text-emerald-700">NORMAL</button>
+            <button type="button" onclick="selectDifficulty('HARD')" id="diff-btn-HARD" class="py-2 px-1 rounded-lg border text-xs font-bold transition border-emerald-200 bg-white text-slate-600 hover:border-rose-500">HARD</button>
           </div>
         </div>
 
         <!-- Game Controls Instruction -->
-        <div class="w-full max-w-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 mb-4 text-xs text-slate-600 text-left">
-          <div class="font-bold text-blue-600 mb-1">🎮 조작 방법</div>
+        <div class="w-full max-w-xs bg-white border border-emerald-200 rounded-lg p-2.5 mb-4 text-xs text-slate-600 text-left shadow-sm">
+          <div class="font-bold text-emerald-700 mb-1">🎮 조작 방법</div>
           <p class="text-slate-500 leading-relaxed">스페이스 바를 눌러 장애물들을 피하세요! (연속 누르면 2단 점프)</p>
         </div>
 
-        <button onclick="startGame()" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-base rounded-xl shadow-md active:scale-95 transition">
+        <button onclick="startGame()" class="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base rounded-xl shadow-md active:scale-95 transition">
           🚀 게임 시작하기
         </button>
       </div>
 
       <!-- END OVERLAY -->
-      <div id="end-overlay" class="hidden absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center z-30">
+      <div id="end-overlay" class="hidden absolute inset-0 bg-emerald-50/95 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center z-30">
         <h2 id="end-title" class="text-3xl font-extrabold mb-3">결과 타이틀</h2>
-        <div id="end-status" class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-xs sm:text-sm text-slate-600 mb-6 max-w-md w-full leading-relaxed">
+        <div id="end-status" class="bg-white border border-emerald-200 p-4 rounded-xl text-xs sm:text-sm text-slate-600 mb-6 max-w-md w-full leading-relaxed shadow-sm">
           <!-- Populated by JS -->
         </div>
         <div class="flex items-center gap-3 w-full max-w-xs">
@@ -149,31 +146,30 @@
 
     </main>
 
-    <!-- Footer: Side-by-side responsive cards -->
     <footer class="grid grid-cols-1 md:grid-cols-2 gap-3">
       
-      <!-- Rules Panel -->
-      <div id="rules-panel" class="bg-white border border-slate-200 rounded-2xl p-3 sm:p-4 text-xs text-slate-600 leading-relaxed shadow-sm">
-        <h3 class="font-bold text-blue-600 text-sm mb-1.5 flex items-center gap-1.5">
-          📜 게임 규칙 & 조작법
+      <!-- Rules Panel (Pastel Green Theme) -->
+      <div id="rules-panel" class="bg-emerald-50/80 border border-emerald-200/60 rounded-2xl p-5 sm:p-6 text-xs text-slate-600 leading-relaxed shadow-sm flex flex-col items-center text-center">
+        <h3 class="font-black text-emerald-800 text-lg sm:text-xl mb-4 flex items-center justify-center gap-2">
+          <span>📜</span> 게임 규칙 & 조작법 <span>🎮</span>
         </h3>
-        <ul class="space-y-1 text-slate-500">
-          <li>• <b class="text-slate-700">조작:</b> 스페이스 바를 눌러 장애물들을 피하세요! (2단 점프 가능)</li>
-          <li>• <b class="text-slate-700">승리:</b> 30초 동안 장애물 충돌 없이 완주하기</li>
-          <li>• 🪽 <b class="text-slate-700">날개:</b> 5초간 무적 (장애물 통과)</li>
-          <li>• ⏰ <b class="text-slate-700">시계:</b> 남은 시간 +5초 연장</li>
-          <li>• 🧲 <b class="text-slate-700">자석:</b> 5초간 동전 자동 끌어당김</li>
-          <li>• 🪙 <b class="text-slate-700">동전:</b> 점수 +100점</li>
+        <ul class="space-y-2 text-slate-600 max-w-md w-full text-left inline-block text-sm">
+          <li>• <b class="text-slate-800">조작:</b> 스페이스 바를 눌러 장애물들을 피하세요! (2단 점프 가능)</li>
+          <li>• <b class="text-slate-800">승리:</b> 30초 동안 장애물 충돌 없이 완주하기</li>
+          <li>• 🪽 <b class="text-slate-800">날개:</b> 5초간 무적 (장애물 통과)</li>
+          <li>• ⏰ <b class="text-slate-800">시계:</b> 남은 시간 +5초 연장</li>
+          <li>• 🧲 <b class="text-slate-800">자석:</b> 5초간 동전 자동 끌어당김</li>
+          <li>• 🪙 <b class="text-slate-800">동전:</b> 점수 +100점</li>
         </ul>
       </div>
 
-      <!-- Recent Records Summary Panel -->
-      <div class="bg-white border border-slate-200 rounded-2xl p-3 sm:p-4 text-xs text-slate-600 shadow-sm">
-        <h3 class="font-bold text-blue-600 text-sm mb-1.5 flex items-center gap-1.5">
-          🏆 최근 플레이 기록
+      <!-- Ranking Panel (Pastel Green Theme) -->
+      <div class="bg-emerald-50/80 border border-emerald-200/60 rounded-2xl p-5 sm:p-6 text-xs text-slate-600 shadow-sm flex flex-col items-center text-center">
+        <h3 class="font-black text-emerald-800 text-lg sm:text-xl mb-4 flex items-center justify-center gap-2">
+          <span>🏆</span> 랭킹 <span>🥇</span>
         </h3>
-        <div id="records-display" class="text-slate-500 leading-relaxed">
-          저장된 기록이 없습니다.
+        <div id="records-display" class="text-slate-500 leading-relaxed w-full flex flex-col items-center justify-center">
+          등록된 랭킹 기록이 없습니다.
         </div>
       </div>
 
@@ -182,10 +178,8 @@
   </div>
 
   <script>
-    // --- Data Storage & State Recovery System ---
-    const STORAGE_KEY = "RUNNER_APP_DATA_V3";
+    const STORAGE_KEY = "RUNNER_APP_DATA_V9";
 
-    // Difficulty Settings
     const DIFFICULTY_SETTINGS = {
       EASY: { name: 'EASY', baseSpeed: 250, accelRate: 0.7, obstacleFreq: 0.25, moveObsProb: 0.15 },
       NORMAL: { name: 'NORMAL', baseSpeed: 320, accelRate: 1.0, obstacleFreq: 0.35, moveObsProb: 0.30 },
@@ -201,16 +195,16 @@
       const btnNormal = document.getElementById('diff-btn-NORMAL');
       const btnHard = document.getElementById('diff-btn-HARD');
 
-      btnEasy.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-slate-200 bg-slate-50 text-slate-600 hover:border-emerald-500";
-      btnNormal.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-slate-200 bg-slate-50 text-slate-600 hover:border-blue-500";
-      btnHard.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-slate-200 bg-slate-50 text-slate-600 hover:border-rose-500";
+      btnEasy.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-emerald-200 bg-white text-slate-600 hover:border-emerald-500";
+      btnNormal.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-emerald-200 bg-white text-slate-600 hover:border-emerald-500";
+      btnHard.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-emerald-200 bg-white text-slate-600 hover:border-rose-500";
 
       if (mode === 'EASY') {
-        btnEasy.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-emerald-500 bg-emerald-50 text-emerald-600";
+        btnEasy.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-emerald-500 bg-emerald-100 text-emerald-700";
       } else if (mode === 'NORMAL') {
-        btnNormal.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-blue-500 bg-blue-50 text-blue-600";
+        btnNormal.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-emerald-500 bg-emerald-100 text-emerald-700";
       } else if (mode === 'HARD') {
-        btnHard.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-rose-500 bg-rose-50 text-rose-600";
+        btnHard.className = "py-2 px-1 rounded-lg border text-xs font-bold transition border-rose-500 bg-rose-100 text-rose-700";
       }
       
       updateHeaderUI();
@@ -218,7 +212,7 @@
 
     let gameData = {
       records: [],
-      bestDistance: 0
+      bestScore: 0
     };
 
     function loadStorage() {
@@ -229,7 +223,7 @@
         if (!parsed || !Array.isArray(parsed.records)) throw new Error("손상된 데이터 구조");
         gameData = parsed;
       } catch (e) {
-        gameData = { records: [], bestDistance: 0 };
+        gameData = { records: [], bestScore: 0 };
         saveStorage();
       }
     }
@@ -242,7 +236,6 @@
       }
     }
 
-    // --- Audio Synthesizer (Web Audio API) ---
     let audioCtx = null;
     let bgmOsc = null;
     let bgmGain = null;
@@ -345,28 +338,25 @@
       } catch(e) {}
     }
 
-    // --- Core Canvas Variables & Canvas Handling ---
     let canvas = null;
     let ctx = null;
 
-    let gameState = 'START'; // START, RUNNING, PAUSED, END
+    let gameState = 'START';
     let playerName = "";
     let lastTime = 0;
     let gameTime = 30.0;
+    let initialTargetTime = 30.0; // 추가: 총 경과/달린 시간을 계산하기 위한 변수
     let distance = 0;
     let score = 0;
     let speedMultiplier = 1.0;
 
-    // Entity Structures
     let player = { x: 90, y: 0, w: 48, h: 48, vy: 0, jumping: false, jumpCount: 0, maxJumps: 2 };
     let obstacles = [];
     let items = [];
 
-    // Active Buff Timers
     let wingTime = 0;
     let magnetTime = 0;
 
-    // Spawning Timers
     let spawnTimer = 0;
     let itemSpawnTimer = 0;
     let messageTimeout = null;
@@ -392,7 +382,13 @@
       if (spawnTimer > obstacleInterval) {
         spawnTimer = 0;
         const isMoving = Math.random() < (diffCfg.moveObsProb + speedMultiplier * 0.08);
-        const obsEmoji = Math.random() < 0.5 ? '👽' : '👹';
+        const obsList = [
+          { emoji: '👽', label: '외계인', canMove: true },
+          { emoji: '👹', label: '도깨비', canMove: true },
+          { emoji: '🌵', label: '선인장', canMove: false },
+          { emoji: '🪨', label: '돌덩이', canMove: false }
+        ];
+        const selectedObs = obsList[Math.floor(Math.random() * obsList.length)];
         const size = Math.floor(40 + Math.random() * 16);
         const groundY = canvas.height - 90;
         
@@ -402,8 +398,8 @@
           initialY: groundY - size,
           w: size,
           h: size,
-          emoji: obsEmoji,
-          moving: isMoving,
+          emoji: selectedObs.emoji,
+          moving: selectedObs.canMove && isMoving,
           moveDir: Math.random() < 0.5 ? 1 : -1
         });
       }
@@ -455,7 +451,6 @@
       }
     });
 
-    // --- Input Mechanics ---
     function triggerJump() {
       if (gameState === 'RUNNING') {
         if (player.jumpCount < player.maxJumps) {
@@ -482,7 +477,7 @@
 
       gameTime -= delta;
       distance += (baseSpeed * speedMultiplier * delta) / 8.5;
-      speedMultiplier = 1.0 + Math.min(2.0, ((30 - gameTime) / 15) * diffCfg.accelRate);
+      speedMultiplier = 1.0 + Math.min(2.0, ((initialTargetTime - gameTime) / 15) * diffCfg.accelRate);
 
       if (wingTime > 0) {
         wingTime = Math.max(0, wingTime - delta);
@@ -586,6 +581,7 @@
         showMessage("5초간 모든 장애물 돌파가 가능합니다!");
       } else if (type === '⏰') {
         gameTime += 5.0;
+        initialTargetTime += 5.0; // 수정: 시계 아이템 먹었을 때 총 목표 시간도 함께 늘려줌
         playSfx('powerup');
         showMessage("플레이 시간이 5초 늘어났습니다!");
       } else if (type === '🧲') {
@@ -602,14 +598,15 @@
       const groundY = canvas.height - 90;
 
       // Ground Line
-      ctx.strokeStyle = '#cbd5e1';
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.moveTo(0, groundY);
       ctx.lineTo(canvas.width, groundY);
       ctx.stroke();
 
-      ctx.fillStyle = '#f8fafc';
+      // Ground fill
+      ctx.fillStyle = '#a7f3d0';
       ctx.fillRect(0, groundY + 2, canvas.width, canvas.height - groundY);
 
       if (wingTime > 0) {
@@ -654,8 +651,7 @@
       initCanvas();
       initAudio();
       const nameInput = document.getElementById('player-name-input').value.trim();
-      playerName = nameInput || "이름";
-      document.getElementById('ui-player-name').innerText = playerName;
+      playerName = nameInput || "플레이어";
 
       document.getElementById('start-overlay').classList.add('hidden');
       document.getElementById('end-overlay').classList.add('hidden');
@@ -668,6 +664,7 @@
     function resetGameState() {
       if (!canvas) initCanvas();
       gameTime = 30.0;
+      initialTargetTime = 30.0; // 초기화
       distance = 0;
       score = 0;
       speedMultiplier = 1.0;
@@ -694,7 +691,8 @@
       stopBGM();
 
       const finalDist = Math.floor(distance);
-      const survivalTime = (30.0 - gameTime).toFixed(1);
+      // 수정: 기본 30초에서 남은 시간을 뺀 것이 아니라, 늘어난 총 목표 시간에서 남은 시간을 빼서 정확한 총 생존(달린) 시간을 계산
+      const survivalTime = (initialTargetTime - gameTime).toFixed(1);
       const timeStr = `${survivalTime}초`;
       const diffCfg = DIFFICULTY_SETTINGS[selectedDifficulty];
 
@@ -702,6 +700,7 @@
         name: playerName,
         difficulty: diffCfg.name,
         distance: finalDist,
+        score: score,
         timeStr: timeStr,
         timestamp: Date.now()
       };
@@ -709,8 +708,8 @@
       gameData.records.unshift(recordEntry);
       if (gameData.records.length > 20) gameData.records.pop();
 
-      if (finalDist > gameData.bestDistance) {
-        gameData.bestDistance = finalDist;
+      if (score > gameData.bestScore) {
+        gameData.bestScore = score;
       }
       saveStorage();
       updateRecordsUI();
@@ -725,9 +724,9 @@
       status.innerHTML = `
         <div class="space-y-1">
           <div>플레이어: <b class="text-slate-800">${playerName}</b></div>
-          <div>선택 난이도: <b class="text-blue-600">${diffCfg.name}</b></div>
-          <div>최종 달린 거리: <b class="text-blue-600">${finalDist}m</b> (최고: ${gameData.bestDistance}m)</div>
-          <div>획득 점수: <b class="text-indigo-600">${score}점</b></div>
+          <div>선택 난이도: <b class="text-emerald-600">${diffCfg.name}</b></div>
+          <div>획득 점수: <b class="text-teal-600">${score}점</b> (최고: ${gameData.bestScore}점)</div>
+          <div>달린 거리: <b class="text-emerald-600">${finalDist}m</b></div>
           <div>생존 시간: <b class="text-slate-700">${timeStr}</b></div>
         </div>
       `;
@@ -773,14 +772,30 @@
     function updateRecordsUI() {
       const display = document.getElementById('records-display');
       if (!gameData.records || gameData.records.length === 0) {
-        display.innerHTML = "저장된 기록이 없습니다.";
+        display.innerHTML = "등록된 랭킹 기록이 없습니다.";
         return;
       }
       
-      let html = "<div class='space-y-1'>";
-      gameData.records.slice(0, 5).forEach((r, idx) => {
+      const sortedRecords = [...gameData.records].sort((a, b) => b.score - a.score);
+
+      let html = "<div class='space-y-1.5 w-full flex flex-col items-center justify-center'>";
+      sortedRecords.slice(0, 5).forEach((r, idx) => {
         const diffName = r.difficulty || 'NORMAL';
-        html += `<div>${idx + 1}. <b class="text-slate-700">${r.name}</b> <span class="text-[10px] text-blue-600 font-semibold">[${diffName}]</span> | ${r.distance}m | <span class="text-rose-600">${r.timeStr}</span></div>`;
+        const rankEmoji = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
+        html += `
+          <div class="flex items-center justify-between border-b border-emerald-100 py-1.5 text-xs sm:text-sm w-full max-w-sm px-2">
+            <div class="flex items-center gap-2">
+              <span class="font-bold w-6 text-center">${rankEmoji}</span>
+              <span class="font-semibold text-slate-800">${r.name}</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <span class="text-teal-700 font-bold">${r.score}점</span>
+              <span class="text-emerald-700">${r.distance}m</span>
+              <span class="text-slate-500">${r.timeStr}</span>
+              <span class="text-[10px] text-teal-700 font-semibold px-1.5 py-0.5 bg-teal-50 rounded">${diffName}</span>
+            </div>
+          </div>
+        `;
       });
       html += "</div>";
       display.innerHTML = html;
@@ -790,7 +805,7 @@
       loadStorage();
       initCanvas();
       updateRecordsUI();
-      startBGM(); // Initialize BGM state as running/active initially
+      startBGM();
       requestAnimationFrame(gameLoop);
     });
   </script>
