@@ -5,7 +5,7 @@
 ## 설치·배포 전제
 
 - Vercel 프로젝트가 이 저장소를 배포해야 한다. 정적 `index.html`은 누구나 열리고, `api/gateway.js`는 서버 함수다. 원래 세 카드의 글과 뒤집기 동작은 그대로 뒀다.
-- Vercel 환경 변수에 `SITE_ORIGIN=https://skt-aleph-01.vercel.app`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`을 설정한다. 마지막 두 값은 별도의 영속 Redis 인스턴스에서 발급해 **Vercel의 서버 환경 변수에만** 넣는다. 저장소, 페이지, 제출문에는 적지 않는다. 키는 서로 다른 Vercel 프로젝트와 공유하지 않는 편이 안전하다.
+- Vercel 미리보기 브랜치의 `SITE_ORIGIN`은 `https://1-portfolio-git-feature-passkey-private-space-dabin4.vercel.app`로 설정한다(끝에 `/` 없음). Upstash for Redis를 `1-portfolio`의 Preview에 연결하면 `KV_REST_API_URL`과 `KV_REST_API_TOKEN`이 자동으로 추가된다. 다른 연동 방식을 쓸 때는 `UPSTASH_REDIS_REST_URL`과 `UPSTASH_REDIS_REST_TOKEN`도 지원한다. 토큰은 **Vercel의 서버 환경 변수에만** 넣고 저장소·페이지·제출문에 적지 않는다. Production에 배포한다면 `SITE_ORIGIN`을 실제 운영 도메인으로 별도로 설정한다.
 - 배포 뒤 첫 패스키는 본인 기기에서 등록한다. 계정명을 먼저 다른 사람이 등록하는 것을 현재 막지 못하므로, 최초 등록 전에 배포 공개 범위와 계정 선점 위험을 판단해야 한다. 두 번째 계정은 계정 격리 검사용 가상 계정이다.
 - 로컬의 `npm test`는 Node.js 22 이상에서 돌아간다. 실제 Redis 서비스와 휴대폰·보안 키 패스키 창은 이 자동 검사에 포함되지 않는다.
 - `SITE_ORIGIN`이나 저장소 값이 없으면 비공개 API가 **503**을 내며, 공개 소개는 계속 열린다. 이 상태에서 등록을 시도해도 저장되지 않는다.
