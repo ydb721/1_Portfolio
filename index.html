@@ -366,12 +366,12 @@
   <section class="private-space" aria-labelledby="private-title">
     <div class="private-label">🔒 비공개 영역 · 패스키 필요</div>
     <h2 id="private-title">나만 보는 자리</h2>
-    <p>가상의 프로젝트 메모, 지원 후보, 회고를 보관해요. 공개 소개의 세 장의 카드는 누구나 그대로 볼 수 있어요.</p>
+    <p>가상의 프로젝트 메모, 지원 후보, 회고를 보관합니다. 공개 소개의 세 장의 카드는 누구나 그대로 볼 수 있습니다.</p>
     <div id="passkey-locked">
       <form id="passkey-login"><label>계정명<input name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="예: sample_a"></label><button type="submit">패스키로 들어가기</button></form>
       <details><summary>처음 쓰는 계정 등록</summary>
         <form id="passkey-register"><label>새 계정명<input name="handle" required pattern="[a-z0-9_-]{3,24}" placeholder="예: sample_a"></label><label>패스키 이름<input name="name" required maxlength="40" placeholder="예: 내 노트북"></label><button type="submit">첫 패스키 등록</button></form>
-        <p class="small">등록 후에는 새 패스키로 로그인해 주세요. 먼저 등록된 계정명은 다시 등록할 수 없어요.</p>
+        <p class="small">등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
       </details>
     </div>
     <div id="passkey-unlocked" hidden>
@@ -379,7 +379,7 @@
       <div id="passkey-notes" class="note-grid"></div>
       <h3>등록한 패스키</h3><ul id="passkey-list"></ul>
       <form id="passkey-add"><label>예비 패스키 이름<input name="name" required maxlength="40" placeholder="예: 예비 보안 키"></label><button type="submit">패스키 추가</button></form>
-      <p class="small">마지막 패스키는 지울 수 없어요. 모두 잃어버렸다면 현재 복구 방법이 없어요.</p>
+      <p class="small">마지막 패스키는 삭제할 수 없습니다. 모든 패스키를 잃어버렸다면 현재 복구 방법이 없습니다.</p>
     </div>
     <p id="passkey-status" role="status" aria-live="polite"></p>
   </section>
