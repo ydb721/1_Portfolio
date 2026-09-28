@@ -26,8 +26,10 @@ function creationOptions(options) {
   return { ...options, challenge: bytes(options.challenge), user: { ...options.user, id: bytes(options.user.id) },
     excludeCredentials: options.excludeCredentials.map(item => ({ ...item, id: bytes(item.id) })) };
 }
-function requestOptions(options) {
-  return { ...options, challenge: bytes(options.challenge), allowCredentials: options.allowCredentials.map(item => ({ ...item, id: bytes(item.id) })) };
+function requestOptions(options, usePhone = false) {
+  return { ...options, ...(usePhone ? { hints: ['hybrid'] } : {}), challenge: bytes(options.challenge),
+    allowCredentials: options.allowCredentials.map(item => ({ ...item, id: bytes(item.id),
+      ...(usePhone ? { transports: ['hybrid'] } : {}) })) };
 }
 async function register(handle, name) {
   const { ceremony, options } = await post('/api/gateway?view=register-options', { handle, name });
@@ -40,11 +42,11 @@ async function register(handle, name) {
   status('등록했습니다. 이제 패스키로 로그인해 주십시오. 패스키 목록은 로그인한 뒤 볼 수 있습니다.');
   if (handle) { $('#passkey-login [name="handle"]').value = handle; showAuthView('login'); }
 }
-async function login(handle) {
+async function login(handle, usePhone = false) {
   const { ceremony, options } = await post('/api/gateway?view=login-options', { handle });
   let response;
-  try { response = await navigator.credentials.get({ publicKey: requestOptions(options) }); }
-  catch { status('패스키 로그인을 취소했습니다. 다시 시도할 수 있습니다.'); return; }
+  try { response = await navigator.credentials.get({ publicKey: requestOptions(options, usePhone) }); }
+  catch { status(usePhone ? '휴대전화 패스키 로그인을 완료하지 못했습니다. 다른 방법을 선택하거나 브라우저 설정을 확인해 주십시오.' : '패스키 로그인을 취소했습니다. 다시 시도할 수 있습니다.'); return; }
   const credential = { id: encoded(response.rawId), response: { clientDataJSON: encoded(response.response.clientDataJSON),
     authenticatorData: encoded(response.response.authenticatorData), signature: encoded(response.response.signature) } };
   await post('/api/gateway?view=login-verify', { ceremony, credential });
@@ -79,7 +81,7 @@ async function refresh() {
 }
 async function action(event, callback) {
   event.preventDefault();
-  const button = event.currentTarget.querySelector('button[type="submit"]');
+  const button = event.submitter ?? event.currentTarget.querySelector('button[type="submit"]');
   button.disabled = true;
   try {
     if (!window.PublicKeyCredential || !window.isSecureContext) throw Error('HTTPS와 패스키 지원 브라우저가 필요합니다.');
@@ -87,7 +89,7 @@ async function action(event, callback) {
   } catch (error) { status(error.message); }
   finally { button.disabled = false; }
 }
-$('#passkey-login').addEventListener('submit', event => action(event, form => login(form.get('handle'))));
+$('#passkey-login').addEventListener('submit', event => action(event, form => login(form.get('handle'), event.submitter?.value === 'phone')));
 $('#passkey-register').addEventListener('submit', event => action(event, form => register(form.get('handle'), form.get('name'))));
 $('#passkey-show-login').addEventListener('click', () => showAuthView('login'));
 $('#passkey-show-register').addEventListener('click', () => showAuthView('register'));
