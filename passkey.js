@@ -85,7 +85,7 @@ async function refresh() {
       try { await api(`/api/gateway?view=passkey&id=${encodeURIComponent(key.id)}`, { method: 'DELETE' }); status('패스키를 삭제했습니다.'); await refresh(); }
       catch (error) { status(error.message); }
     });
-    li.append(label, button); return li;
+    li.append(button, label); return li;
   }));
 }
 async function action(event, callback) {
