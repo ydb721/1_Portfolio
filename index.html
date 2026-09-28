@@ -235,7 +235,6 @@
     .private-space { position:relative; background:#f8faff; border:2px solid #c7d2fe; border-radius:18px; padding:24px; margin-top:12px; box-shadow:0 4px 14px rgba(79,70,229,.08); }
     body > .private-page-title { order:-2; align-self:center; color:#1e1b4b; font-size:28px; font-weight:800; width:fit-content; margin:0 auto -10px; padding:4px 14px; background:var(--primary-soft); border-radius:6px; text-align:center; }
     .private-space h3 { color:var(--text-title); font-size:17px; margin:16px 0 6px; }
-    .private-label { color:var(--text-sub); font-weight:600; font-size:13.5px; text-align:center; transform:translateY(-6px); }
     .private-description { color:var(--text-sub); font-size:13.5px; font-weight:600; text-align:center; margin:20px auto 0; }
     .private-space p { margin:8px 0; }
     .private-space form { display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px; margin:16px 0; }
@@ -282,7 +281,6 @@
     body.passkey-signed-in > .private-space.keys-many { padding-top:118px; }
     body.passkey-signed-in > .private-space.keys-several { padding-top:160px; }
     body.passkey-signed-in > .private-space.add-form-open { padding-top:235px; }
-    body.passkey-signed-in .private-label { visibility:hidden; }
     .private-space .private-toolbar { position:absolute; top:14px; left:24px; right:24px; display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:12px; }
     .private-space .private-toolbar .toolbar-title { color:#1e1b4b; font-size:28px; font-weight:800; margin:0; padding:4px 14px; background:var(--primary-soft); border-radius:6px; text-align:center; white-space:nowrap; }
     .private-space .passkey-manager { flex:0 1 220px; min-width:0; padding:8px 0; }
@@ -425,7 +423,6 @@
   <!-- 비공개 자료의 본문은 HTML/JavaScript에 넣지 않고 인증 후 API에서 받는다. -->
   <h2 id="private-title" class="private-page-title">🔒 나만 보는 자리 🔑</h2>
   <section class="private-space" aria-labelledby="private-title">
-    <div class="private-label">🔒 비공개 영역 · 패스키 필요</div>
     <div id="passkey-locked">
       <button class="public-preview-link" id="passkey-public-preview" type="button" aria-expanded="false" aria-controls="public-cards">로그인 없이 공개 카드 보기</button>
       <div class="passkey-auth">
