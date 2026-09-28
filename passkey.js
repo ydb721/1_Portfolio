@@ -16,6 +16,12 @@ function showAuthView(view) {
   $('#passkey-show-login').setAttribute('aria-pressed', String(isLogin));
   $('#passkey-show-register').setAttribute('aria-pressed', String(!isLogin));
 }
+function setPublicPreview(open) {
+  document.body.classList.toggle('public-preview-open', open);
+  const button = $('#passkey-public-preview');
+  button.textContent = open ? '공개 카드 접기' : '로그인 없이 공개 소개 보기';
+  button.setAttribute('aria-expanded', String(open));
+}
 function creationOptions(options) {
   return { ...options, challenge: bytes(options.challenge), user: { ...options.user, id: bytes(options.user.id) },
     excludeCredentials: options.excludeCredentials.map(item => ({ ...item, id: bytes(item.id) })) };
@@ -49,7 +55,7 @@ async function login(handle) {
 async function refresh() {
   const me = await api('/api/gateway?view=me');
   document.body.classList.toggle('passkey-signed-in', Boolean(me.handle));
-  if (!me.handle) document.body.classList.remove('public-preview-open');
+  if (!me.handle) setPublicPreview(false);
   $('#passkey-locked').hidden = Boolean(me.handle);
   $('#passkey-unlocked').hidden = !me.handle;
   if (!me.handle) { $('#passkey-notes').replaceChildren(); $('#passkey-list').replaceChildren(); return; }
@@ -85,10 +91,19 @@ $('#passkey-login').addEventListener('submit', event => action(event, form => lo
 $('#passkey-register').addEventListener('submit', event => action(event, form => register(form.get('handle'), form.get('name'))));
 $('#passkey-show-login').addEventListener('click', () => showAuthView('login'));
 $('#passkey-show-register').addEventListener('click', () => showAuthView('register'));
-$('#passkey-public-preview').addEventListener('click', () => document.body.classList.add('public-preview-open'));
+$('#passkey-public-preview').addEventListener('click', () => {
+  const open = !document.body.classList.contains('public-preview-open');
+  setPublicPreview(open);
+  (open ? $('#public-cards') : $('.private-space')).scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 $('#passkey-add').addEventListener('submit', event => action(event, async form => { await register('', form.get('name')); await refresh(); }));
 $('#passkey-logout').addEventListener('click', async () => {
   try { await post('/api/gateway?view=logout', {}); await refresh(); status('로그아웃했습니다. 비공개 내용은 화면에서 지웠습니다.'); }
   catch (error) { status(error.message); }
 });
-refresh().catch(error => status(error.message));
+refresh().then(() => {
+  if (location.hash === '#public-cards' && !document.body.classList.contains('passkey-signed-in')) {
+    setPublicPreview(true);
+    $('#public-cards').scrollIntoView({ block: 'start' });
+  }
+}).catch(error => status(error.message));
