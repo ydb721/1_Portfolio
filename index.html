@@ -267,6 +267,19 @@
     .private-space ul { padding-left:20px; }
     .private-space li { margin:8px 0; }
     .private-space li button { margin-left:8px; }
+    .private-space .signed-in-card { max-width:440px; margin:20px auto 0; padding:18px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; text-align:center; }
+    .private-space .signed-in-account { margin:0 0 12px; color:var(--text-title); font-size:16px; }
+    .private-space .signed-in-card #passkey-logout { display:block; width:100%; }
+    .private-space .passkey-manager { max-width:440px; margin:20px auto 0; padding:18px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
+    .private-space .passkey-manager h3 { margin:0 0 12px; text-align:center; }
+    .private-space .passkey-manager ul { list-style:none; padding:0; margin:0; }
+    .private-space .passkey-manager li { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:8px 0; padding:10px 12px; border:1px solid #c7d2fe; border-radius:8px; background:#f8faff; }
+    .private-space .passkey-manager li span { min-width:0; overflow-wrap:anywhere; }
+    .private-space .passkey-manager li button { flex:none; margin:0; }
+    .private-space .passkey-manager form { display:grid; gap:12px; margin:18px 0 0; }
+    .private-space .passkey-manager label { width:100%; }
+    .private-space .passkey-manager input,.private-space .passkey-manager button[type="submit"] { width:100%; max-width:none; }
+    .private-space .passkey-manager .small { margin:12px 0 0; text-align:center; color:#64748b; font-weight:400; }
     .private-space [hidden] { display:none !important; }
     #passkey-status { min-height:24px; color:#64748b; font-size:13px; font-weight:400; letter-spacing:.04em; text-align:center; }
     @media(max-width:700px) { .private-space .note-grid { grid-template-columns:1fr; } .private-space li button { display:block; margin:7px 0; } }
@@ -401,11 +414,20 @@
       <button class="public-preview-link" id="passkey-public-preview" type="button" aria-expanded="false" aria-controls="public-cards">로그인 없이 공개 소개 보기</button>
     </div>
     <div id="passkey-unlocked" hidden>
-      <p><strong id="passkey-account"></strong> <button class="secondary" id="passkey-logout">로그아웃</button></p>
+      <div class="signed-in-card">
+        <p class="signed-in-account"><strong id="passkey-account"></strong></p>
+        <button class="secondary" id="passkey-logout" type="button">로그아웃</button>
+      </div>
       <div id="passkey-notes" class="note-grid"></div>
-      <h3>등록한 패스키</h3><ul id="passkey-list"></ul>
-      <form id="passkey-add"><label>예비 패스키 이름<input name="name" required maxlength="40" placeholder="예: 예비 보안 키"></label><button type="submit">패스키 추가</button></form>
-      <p class="small">마지막 패스키는 삭제할 수 없습니다. 모든 패스키를 잃어버렸다면 현재 복구 방법이 없습니다.</p>
+      <div class="passkey-manager">
+        <h3>등록한 패스키</h3>
+        <ul id="passkey-list"></ul>
+        <form id="passkey-add">
+          <label>예비 패스키 이름<input name="name" required maxlength="40" placeholder="예: 예비 보안 키"></label>
+          <button type="submit">패스키 추가</button>
+        </form>
+        <p class="small">마지막 패스키는 삭제할 수 없습니다. 모든 패스키를 잃어버렸다면 현재 복구 방법이 없습니다.</p>
+      </div>
     </div>
     <p id="passkey-status" role="status" aria-live="polite"></p>
   </section>
