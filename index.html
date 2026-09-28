@@ -236,7 +236,7 @@
     body > .private-page-title { order:-2; align-self:center; color:var(--text-title); font-size:22px; width:fit-content; margin:0 auto -10px; padding:4px 14px; background:var(--primary-soft); border-radius:6px; text-align:center; }
     .private-space h3 { color:var(--text-title); font-size:17px; margin:16px 0 6px; }
     .private-label { color:#64748b; font-weight:400; font-size:13px; letter-spacing:.04em; text-align:right; transform:translateY(-6px); }
-    .private-description { color:#64748b; font-size:13px; font-weight:400; letter-spacing:.04em; text-align:center; transform:translateY(-10px); }
+    .private-description { color:#64748b; font-size:13px; font-weight:400; letter-spacing:.04em; text-align:center; margin:20px auto 0; }
     .private-space p { margin:8px 0; }
     .private-space form { display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px; margin:16px 0; }
     .private-space label { display:grid; gap:5px; font-weight:700; }
@@ -287,7 +287,8 @@
     .private-space #passkey-add { position:absolute; top:67px; right:24px; z-index:2; display:grid; gap:8px; width:min(280px, calc(100% - 48px)); margin:0; padding:14px; border:1px solid #c7d2fe; border-radius:10px; background:#fff; box-shadow:0 6px 18px rgba(79,70,229,.12); }
     .private-space #passkey-add label { width:100%; font-size:13px; }
     .private-space #passkey-add input,.private-space #passkey-add button { width:100%; max-width:none; }
-    .private-space .passkey-warning { max-width:440px; margin:12px auto 0; text-align:center; color:#64748b; font-size:13px; font-weight:400; }
+    .private-space .passkey-warning { margin:12px auto 0; text-align:center; color:#64748b; font-size:13px; font-weight:400; white-space:nowrap; }
+    @media(max-width:700px) { .private-space .passkey-warning { white-space:normal; word-break:keep-all; } }
     @media(max-width:900px) {
       body.passkey-signed-in > .private-space,body.passkey-signed-in > .private-space.keys-many,body.passkey-signed-in > .private-space.keys-several,body.passkey-signed-in > .private-space.add-form-open { padding-top:24px; }
       .private-space .private-toolbar { position:static; flex-wrap:wrap; margin:0 0 16px; }
@@ -412,7 +413,6 @@
   <h2 id="private-title" class="private-page-title">나만 보는 자리</h2>
   <section class="private-space" aria-labelledby="private-title">
     <div class="private-label">🔒 비공개 영역 · 패스키 필요</div>
-    <p class="private-description">가상의 프로젝트 메모, 지원 후보, 회고를 보관합니다. 공개 소개의 세 장의 카드는 누구나 그대로 볼 수 있습니다.</p>
     <div id="passkey-locked">
       <div class="passkey-auth">
         <div class="passkey-auth-tabs" role="group" aria-label="패스키 인증 화면 선택">
@@ -449,6 +449,7 @@
       <p class="passkey-warning">마지막 패스키는 삭제할 수 없습니다. 모든 패스키를 잃어버렸다면 현재 복구 방법이 없습니다.</p>
     </div>
     <p id="passkey-status" role="status" aria-live="polite"></p>
+    <p class="private-description">가상의 프로젝트 메모, 지원 후보, 회고를 보관합니다. 공개 소개의 세 장의 카드는 누구나 그대로 볼 수 있습니다.</p>
   </section>
 
   <!-- 하단 안내 영역 -->
