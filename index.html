@@ -256,7 +256,7 @@
     body:not(.passkey-signed-in):not(.public-preview-open) > header,
     body:not(.passkey-signed-in):not(.public-preview-open) > #public-cards,
     body:not(.passkey-signed-in):not(.public-preview-open) > footer { display:none; }
-    .private-space .public-preview-link { display:block; width:fit-content; margin:14px auto 0; color:var(--text-title); font-size:13px; }
+    .private-space .public-preview-link { display:block; width:fit-content; margin:14px auto 0; padding:0; border:0; background:transparent; color:var(--text-title); font-size:13px; font-weight:400; text-decoration:underline; }
     .private-space .public-preview-link:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     .private-space button:focus-visible,.private-space input:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     .private-space button:disabled { opacity:.5; cursor:wait; }
@@ -397,7 +397,7 @@
           <p class="small">등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
         </div>
       </div>
-      <a class="public-preview-link" id="passkey-public-preview" href="#public-cards">로그인 없이 공개 소개 보기</a>
+      <button class="public-preview-link" id="passkey-public-preview" type="button" aria-expanded="false" aria-controls="public-cards">로그인 없이 공개 소개 보기</button>
     </div>
     <div id="passkey-unlocked" hidden>
       <p><strong id="passkey-account"></strong> <button class="secondary" id="passkey-logout">로그아웃</button></p>
