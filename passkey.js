@@ -73,8 +73,10 @@ async function refresh() {
   $('#passkey-account').textContent = `계정: ${me.handle}`;
   const notes = await api('/api/gateway?view=notes');
   $('#passkey-notes').replaceChildren(...notes.notes.map(note => {
-    const card = document.createElement('article'), h = document.createElement('h3'), p = document.createElement('p');
-    h.textContent = note.title; p.textContent = note.body; card.append(h, p); return card;
+    const card = document.createElement('article'), header = document.createElement('div'), h = document.createElement('h3'), title = document.createElement('span'), body = document.createElement('div'), p = document.createElement('p');
+    header.className = 'note-header'; body.className = 'note-body';
+    title.textContent = note.title; p.textContent = note.body;
+    h.append(title); header.append(h); body.append(p); card.append(header, body); return card;
   }));
   $('#passkey-list').replaceChildren(...me.passkeys.map(key => {
     const li = document.createElement('li'), label = document.createElement('span'), button = document.createElement('button');
