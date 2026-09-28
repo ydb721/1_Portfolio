@@ -243,11 +243,14 @@
     .private-space input { font:inherit; border:1px solid #a5b4fc; border-radius:7px; padding:9px; max-width:210px; background:#fff; }
     .private-space button { border:1px solid #a5b4fc; border-radius:7px; padding:10px 14px; background:#e0e7ff; color:var(--text-title); font:inherit; font-weight:700; cursor:pointer; }
     .private-space button.secondary { background:#fff; border:1px solid #a5b4fc; color:var(--text-title); }
-    .passkey-auth { width:100%; max-width:440px; min-height:400px; margin:20px auto 0; padding:18px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
+    .passkey-auth { display:flex; flex-direction:column; width:100%; max-width:440px; min-height:400px; margin:20px auto 0; padding:18px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
     .passkey-auth-tabs { display:flex; gap:8px; }
     .private-space .passkey-auth-tabs button { flex:1; background:#fff; font-weight:400; }
     .private-space .passkey-auth-tabs button[aria-pressed="true"] { background:#e0e7ff; font-weight:700; }
     .private-space .passkey-auth form { display:grid; gap:12px; margin:18px 0 0; }
+    #passkey-login-panel { flex:1; display:flex; align-items:center; }
+    .private-space #passkey-login-panel #passkey-login { width:100%; margin:0; }
+    #passkey-login button[type="submit"]:first-of-type { margin-top:16px; }
     .private-space .passkey-auth label { width:100%; }
     .private-space .passkey-auth input { width:100%; max-width:none; }
     #passkey-login button[type="submit"],#passkey-register button[type="submit"] { width:100%; text-align:center; }
