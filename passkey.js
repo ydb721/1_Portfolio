@@ -100,9 +100,4 @@ $('#passkey-logout').addEventListener('click', async () => {
   try { await post('/api/gateway?view=logout', {}); await refresh(); status('로그아웃했습니다. 비공개 내용은 화면에서 지웠습니다.'); }
   catch (error) { status(error.message); }
 });
-refresh().then(() => {
-  if (location.hash === '#public-cards' && !document.body.classList.contains('passkey-signed-in')) {
-    setPublicPreview(true);
-    $('#public-cards').scrollIntoView({ block: 'start' });
-  }
-}).catch(error => status(error.message));
+refresh().catch(error => status(error.message));
