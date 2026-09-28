@@ -65,12 +65,10 @@ async function refresh() {
   const me = await api('/api/gateway?view=me');
   document.body.classList.toggle('passkey-signed-in', Boolean(me.handle));
   $('.private-space').setAttribute('aria-labelledby', me.handle ? 'private-title-signed-in' : 'private-title');
-  $('.private-space').classList.toggle('keys-many', (me.passkeys?.length || 0) === 2);
-  $('.private-space').classList.toggle('keys-several', (me.passkeys?.length || 0) > 2);
   if (!me.handle) setPublicPreview(false);
   $('#passkey-locked').hidden = Boolean(me.handle);
   $('#passkey-unlocked').hidden = !me.handle;
-  if (!me.handle) { $('#passkey-notes').replaceChildren(); $('#passkey-list').replaceChildren(); setAddForm(false); return; }
+  if (!me.handle) { if ($('#passkey-dialog').open) $('#passkey-dialog').close(); $('#passkey-notes').replaceChildren(); $('#passkey-list').replaceChildren(); setAddForm(false); return; }
   $('#passkey-account').textContent = `계정: ${me.handle}`;
   const notes = await api('/api/gateway?view=notes');
   $('#passkey-notes').replaceChildren(...notes.notes.map(note => {
@@ -85,8 +83,8 @@ async function refresh() {
     button.textContent = '삭제'; button.className = 'secondary';
     button.addEventListener('click', async () => {
       if (!confirm(`${key.name} 패스키를 계정에서 삭제하시겠습니까?`)) return;
-      try { await api(`/api/gateway?view=passkey&id=${encodeURIComponent(key.id)}`, { method: 'DELETE' }); await refresh(); status(''); }
-      catch (error) { status(error.message); }
+      try { await api(`/api/gateway?view=passkey&id=${encodeURIComponent(key.id)}`, { method: 'DELETE' }); await refresh(); $('#passkey-dialog-status').textContent = ''; }
+      catch (error) { $('#passkey-dialog-status').textContent = error.message; }
     });
     li.append(label, button); return li;
   }));
@@ -112,6 +110,9 @@ $('#passkey-public-preview').addEventListener('click', () => {
   const open = !document.body.classList.contains('public-preview-open');
   setPublicPreview(open);
 });
+$('#passkey-show-list').addEventListener('click', () => { $('#passkey-dialog-status').textContent = ''; $('#passkey-dialog').showModal(); });
+$('#passkey-dialog-close').addEventListener('click', () => $('#passkey-dialog').close());
+$('#passkey-dialog').addEventListener('click', event => { if (event.target === $('#passkey-dialog')) $('#passkey-dialog').close(); });
 $('#passkey-show-add').addEventListener('click', () => setAddForm($('#passkey-add').hidden));
 $('#passkey-add').addEventListener('submit', event => action(event, async form => {
   if (await register('', form.get('name'))) { setAddForm(false); await refresh(); }
