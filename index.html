@@ -236,6 +236,7 @@
     .private-space h2 { color:var(--text-title); font-size:22px; margin:5px 0 10px; text-align:center; }
     .private-space h3 { color:var(--text-title); font-size:17px; margin:16px 0 6px; }
     .private-label { color:#64748b; font-weight:400; font-size:13px; letter-spacing:.04em; text-align:right; transform:translateY(-6px); }
+    .private-description { color:#64748b; font-size:13px; font-weight:400; letter-spacing:.04em; text-align:center; }
     .private-space p { margin:8px 0; }
     .private-space form { display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px; margin:16px 0; }
     .private-space label { display:grid; gap:5px; font-weight:700; }
@@ -366,7 +367,7 @@
   <section class="private-space" aria-labelledby="private-title">
     <div class="private-label">🔒 비공개 영역 · 패스키 필요</div>
     <h2 id="private-title">나만 보는 자리</h2>
-    <p>가상의 프로젝트 메모, 지원 후보, 회고를 보관합니다. 공개 소개의 세 장의 카드는 누구나 그대로 볼 수 있습니다.</p>
+    <p class="private-description">가상의 프로젝트 메모, 지원 후보, 회고를 보관합니다. 공개 소개의 세 장의 카드는 누구나 그대로 볼 수 있습니다.</p>
     <div id="passkey-locked">
       <form id="passkey-login"><label>계정명<input name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="예: sample_a"></label><button type="submit">패스키로 들어가기</button></form>
       <h3>처음 쓰는 계정 등록</h3>
