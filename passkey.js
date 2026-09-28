@@ -13,6 +13,7 @@ function showAuthView(view) {
   const isLogin = view === 'login';
   $('#passkey-login-panel').hidden = !isLogin;
   $('#passkey-register-panel').hidden = isLogin;
+  $('#register-guidance').hidden = isLogin;
   $('#passkey-show-login').setAttribute('aria-pressed', String(isLogin));
   $('#passkey-show-register').setAttribute('aria-pressed', String(!isLogin));
 }
