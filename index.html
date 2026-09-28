@@ -252,7 +252,7 @@
     #passkey-login button[type="submit"]:first-of-type { margin-top:16px; }
     .private-space .passkey-auth label { width:100%; }
     .private-space .passkey-auth .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-    .private-space .passkey-auth input { width:100%; max-width:none; }
+    .private-space .passkey-auth input { width:100%; max-width:none; font-weight:400; }
     #passkey-login button[type="submit"],#passkey-register button[type="submit"] { width:100%; text-align:center; }
     #passkey-login button[value="phone"] { background:#fff; font-weight:400; }
     .private-space .passkey-auth .small { margin:12px 0 0; }
@@ -260,8 +260,7 @@
     body:not(.passkey-signed-in):not(.public-preview-open) > header,
     body:not(.passkey-signed-in):not(.public-preview-open) > #public-cards,
     body:not(.passkey-signed-in):not(.public-preview-open) > footer { display:none; }
-    .private-space .public-preview-link { position:absolute; top:20px; right:24px; display:block; width:fit-content; margin:0; padding:0; border:0; background:transparent; color:var(--text-title); font-size:13px; font-weight:400; text-decoration:underline; }
-    @media(max-width:700px) { .private-space .public-preview-link { position:static; margin:4px 0 0 auto; text-align:right; } }
+    .private-space .public-preview-link { display:block; width:fit-content; margin:16px auto 0; padding:0; border:0; background:transparent; color:var(--text-title); font-size:13px; font-weight:400; text-align:center; text-decoration:underline; }
     .private-space .public-preview-link:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     .private-space button:focus-visible,.private-space input:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     .private-space button:disabled { opacity:.5; cursor:wait; }
@@ -424,7 +423,6 @@
   <h2 id="private-title" class="private-page-title">🔒 나만 보는 자리 🔑</h2>
   <section class="private-space" aria-labelledby="private-title">
     <div id="passkey-locked">
-      <button class="public-preview-link" id="passkey-public-preview" type="button" aria-expanded="false" aria-controls="public-cards">로그인 없이 공개 카드 보기</button>
       <div class="passkey-auth">
         <div class="passkey-auth-tabs" role="group" aria-label="패스키 인증 화면 선택">
           <button id="passkey-show-login" type="button" aria-pressed="true" aria-controls="passkey-login-panel">로그인</button>
@@ -438,6 +436,7 @@
           <p class="small">등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
         </div>
       </div>
+      <button class="public-preview-link" id="passkey-public-preview" type="button" aria-expanded="false" aria-controls="public-cards">로그인 없이 공개 카드 보기</button>
     </div>
     <div id="passkey-unlocked" hidden>
       <div class="private-toolbar">
