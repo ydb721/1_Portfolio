@@ -63,6 +63,7 @@ async function login(handle, usePhone = false) {
 async function refresh() {
   const me = await api('/api/gateway?view=me');
   document.body.classList.toggle('passkey-signed-in', Boolean(me.handle));
+  $('.private-space').setAttribute('aria-labelledby', me.handle ? 'private-title-signed-in' : 'private-title');
   if (!me.handle) setPublicPreview(false);
   $('#passkey-locked').hidden = Boolean(me.handle);
   $('#passkey-unlocked').hidden = !me.handle;
