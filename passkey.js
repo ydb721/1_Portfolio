@@ -94,7 +94,6 @@ $('#passkey-show-register').addEventListener('click', () => showAuthView('regist
 $('#passkey-public-preview').addEventListener('click', () => {
   const open = !document.body.classList.contains('public-preview-open');
   setPublicPreview(open);
-  (open ? $('#public-cards') : $('.private-space')).scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 $('#passkey-add').addEventListener('submit', event => action(event, async form => { await register('', form.get('name')); await refresh(); }));
 $('#passkey-logout').addEventListener('click', async () => {
