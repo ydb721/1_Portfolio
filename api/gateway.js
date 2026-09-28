@@ -25,22 +25,22 @@ async function bodyOf(req) {
   for await (const piece of req) { value += piece; if (value.length > 50000) throw Error('body too large'); }
   return JSON.parse(value || '{}');
 }
-const examples = handle => [
-  { title: '프로젝트 메모', body: `${handle}의 가상 메모: 화면 흐름을 세 단계로 줄이는 연습입니다.` },
-  { title: '지원 후보', body: `${handle}의 가상 목록: 예시 팀 A, 예시 팀 B, 예시 팀 C를 비교합니다.` },
-  { title: '회고', body: `${handle}의 가상 회고: 근거를 먼저 적고 다음 행동을 정합니다.` },
+const examples = () => [
+  { title: '프로젝트 메모', body: '포트폴리오의 공개 카드는 로그인 없이 볼 수 있도록 유지했습니다. 비공개 영역은 패스키 인증 뒤에만 열리며, 로그아웃하거나 새로고침한 상태에서도 다른 계정의 메모가 보이지 않는지 확인할 계획입니다. 제출 전에는 휴대전화와 집 PC에서 각각 등록·로그인·로그아웃 흐름을 다시 점검하겠습니다.' },
+  { title: '지원 후보', body: 'Java 백엔드 직무: 서버 API와 데이터베이스 설계 경험을 중심으로 공고를 비교합니다. 웹 보안 직무: 인증 흐름과 접근 제어 구현을 설명할 수 있는 사례를 보강합니다. 지원 순서는 필수 기술과 제 프로젝트의 증빙이 얼마나 맞는지 확인한 뒤 정할 예정입니다.' },
+  { title: '회고', body: '학원 PC에서는 블루투스와 Windows Hello PIN을 사용할 수 없어 패스키 테스트를 끝내지 못했습니다. 휴대전화에서는 계정 등록과 비공개 카드 표시를 확인했습니다. 집 PC에서 로그인을 재검증하고, 결과를 기기별로 구분해 과제 보고서에 기록하겠습니다.' },
 ];
-// Existing test accounts have the previous copy in Redis. Update only matching sample text on read.
+// Replace only the sample notes created by earlier versions; preserve any other notes.
 const formalExamples = (notes, handle) => {
-  const updated = examples(handle);
+  const updated = examples();
   const previous = [
-    `${handle}의 가상 메모: 화면 흐름을 세 단계로 줄이는 연습.`,
-    `${handle}의 가상 목록: 예시 팀 A, 예시 팀 B, 예시 팀 C를 비교.`,
-    `${handle}의 가상 회고: 근거를 먼저 적고 다음 행동을 정하기.`,
+    [`${handle}의 가상 메모: 화면 흐름을 세 단계로 줄이는 연습.`, `${handle}의 가상 메모: 화면 흐름을 세 단계로 줄이는 연습입니다.`],
+    [`${handle}의 가상 목록: 예시 팀 A, 예시 팀 B, 예시 팀 C를 비교.`, `${handle}의 가상 목록: 예시 팀 A, 예시 팀 B, 예시 팀 C를 비교합니다.`],
+    [`${handle}의 가상 회고: 근거를 먼저 적고 다음 행동을 정하기.`, `${handle}의 가상 회고: 근거를 먼저 적고 다음 행동을 정합니다.`],
   ];
   return notes.map(note => {
     const index = updated.findIndex(item => item.title === note.title);
-    return index >= 0 && note.body === previous[index] ? { ...note, body: updated[index].body } : note;
+    return index >= 0 && previous[index].includes(note.body) ? { ...note, body: updated[index].body } : note;
   });
 };
 
@@ -66,7 +66,11 @@ export default async function handler(req, res) {
       const requested = new URL(req.url, origin).searchParams.get('account');
       if (requested && requested !== me.handle) return respond(res, 403, { error: '다른 계정의 자료는 볼 수 없습니다.' });
       const notes = JSON.parse(await redis('GET', k.notes(me.id)) || '[]');
-      return respond(res, 200, { handle: me.handle, notes: formalExamples(notes, me.handle) });
+      const updated = formalExamples(notes, me.handle);
+      if (updated.some((note, index) => note.body !== notes[index].body)) {
+        await redis('SET', k.notes(me.id), JSON.stringify(updated));
+      }
+      return respond(res, 200, { handle: me.handle, notes: updated });
     }
     if (req.method === 'POST' && view === 'register-options') {
       const body = await bodyOf(req), handle = me?.handle ?? body.handle;
