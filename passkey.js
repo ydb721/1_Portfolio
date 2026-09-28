@@ -28,8 +28,7 @@ function creationOptions(options) {
 }
 function requestOptions(options, usePhone = false) {
   return { ...options, ...(usePhone ? { hints: ['hybrid'] } : {}), challenge: bytes(options.challenge),
-    allowCredentials: options.allowCredentials.map(item => ({ ...item, id: bytes(item.id),
-      ...(usePhone ? { transports: ['hybrid'] } : {}) })) };
+    allowCredentials: usePhone ? [] : options.allowCredentials.map(item => ({ ...item, id: bytes(item.id) })) };
 }
 async function register(handle, name) {
   const { ceremony, options } = await post('/api/gateway?view=register-options', { handle, name });
@@ -46,7 +45,7 @@ async function login(handle, usePhone = false) {
   const { ceremony, options } = await post('/api/gateway?view=login-options', { handle });
   let response;
   try { response = await navigator.credentials.get({ publicKey: requestOptions(options, usePhone) }); }
-  catch { status(usePhone ? '휴대전화 패스키 로그인을 완료하지 못했습니다. 다른 방법을 선택하거나 브라우저 설정을 확인해 주십시오.' : '패스키 로그인을 취소했습니다. 다시 시도할 수 있습니다.'); return; }
+  catch (error) { status(usePhone ? `휴대전화 패스키 로그인을 완료하지 못했습니다. 브라우저 오류: ${error.name || '알 수 없음'}` : '패스키 로그인을 취소했습니다. 다시 시도할 수 있습니다.'); return; }
   const credential = { id: encoded(response.rawId), response: { clientDataJSON: encoded(response.response.clientDataJSON),
     authenticatorData: encoded(response.response.authenticatorData), signature: encoded(response.response.signature) } };
   await post('/api/gateway?view=login-verify', { ceremony, credential });
@@ -89,7 +88,10 @@ async function action(event, callback) {
   } catch (error) { status(error.message); }
   finally { button.disabled = false; }
 }
-$('#passkey-login').addEventListener('submit', event => action(event, form => login(form.get('handle'), event.submitter?.value === 'phone')));
+$('#passkey-login').addEventListener('submit', event => {
+  const usePhone = event.submitter?.value === 'phone';
+  action(event, form => login(form.get('handle'), usePhone));
+});
 $('#passkey-register').addEventListener('submit', event => action(event, form => register(form.get('handle'), form.get('name'))));
 $('#passkey-show-login').addEventListener('click', () => showAuthView('login'));
 $('#passkey-show-register').addEventListener('click', () => showAuthView('register'));
