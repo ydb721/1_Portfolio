@@ -22,6 +22,12 @@ function setPublicPreview(open) {
   button.textContent = open ? '공개 카드 접기' : '로그인 없이 공개 소개 보기';
   button.setAttribute('aria-expanded', String(open));
 }
+function setAddForm(open) {
+  $('#passkey-add').hidden = !open;
+  $('#passkey-show-add').setAttribute('aria-expanded', String(open));
+  $('.private-space').classList.toggle('add-form-open', open);
+  if (open) $('#passkey-add [name="name"]').focus();
+}
 function creationOptions(options) {
   return { ...options, challenge: bytes(options.challenge), user: { ...options.user, id: bytes(options.user.id) },
     excludeCredentials: options.excludeCredentials.map(item => ({ ...item, id: bytes(item.id) })) };
@@ -34,12 +40,13 @@ async function register(handle, name) {
   const { ceremony, options } = await post('/api/gateway?view=register-options', { handle, name });
   let response;
   try { response = await navigator.credentials.create({ publicKey: creationOptions(options) }); }
-  catch (error) { status('등록을 취소했습니다. 서버에 새 패스키는 저장되지 않았습니다.'); return; }
+  catch (error) { status('등록을 취소했습니다. 서버에 새 패스키는 저장되지 않았습니다.'); return false; }
   const credential = { id: encoded(response.rawId), response: {
     clientDataJSON: encoded(response.response.clientDataJSON), attestationObject: encoded(response.response.attestationObject) } };
   await post('/api/gateway?view=register-verify', { ceremony, credential });
   status('등록했습니다. 이제 패스키로 로그인해 주십시오. 패스키 목록은 로그인한 뒤 볼 수 있습니다.');
   if (handle) { $('#passkey-login [name="handle"]').value = handle; showAuthView('login'); }
+  return true;
 }
 async function login(handle, usePhone = false) {
   const { ceremony, options } = await post('/api/gateway?view=login-options', { handle });
@@ -59,7 +66,7 @@ async function refresh() {
   if (!me.handle) setPublicPreview(false);
   $('#passkey-locked').hidden = Boolean(me.handle);
   $('#passkey-unlocked').hidden = !me.handle;
-  if (!me.handle) { $('#passkey-notes').replaceChildren(); $('#passkey-list').replaceChildren(); return; }
+  if (!me.handle) { $('#passkey-notes').replaceChildren(); $('#passkey-list').replaceChildren(); setAddForm(false); return; }
   $('#passkey-account').textContent = `계정: ${me.handle}`;
   const notes = await api('/api/gateway?view=notes');
   $('#passkey-notes').replaceChildren(...notes.notes.map(note => {
@@ -99,7 +106,10 @@ $('#passkey-public-preview').addEventListener('click', () => {
   const open = !document.body.classList.contains('public-preview-open');
   setPublicPreview(open);
 });
-$('#passkey-add').addEventListener('submit', event => action(event, async form => { await register('', form.get('name')); await refresh(); }));
+$('#passkey-show-add').addEventListener('click', () => setAddForm($('#passkey-add').hidden));
+$('#passkey-add').addEventListener('submit', event => action(event, async form => {
+  if (await register('', form.get('name'))) { setAddForm(false); await refresh(); }
+}));
 $('#passkey-logout').addEventListener('click', async () => {
   try { await post('/api/gateway?view=logout', {}); await refresh(); status('로그아웃했습니다. 비공개 내용은 화면에서 지웠습니다.'); }
   catch (error) { status(error.message); }
