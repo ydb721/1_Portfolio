@@ -252,6 +252,9 @@
     .private-space .passkey-auth input { width:100%; max-width:none; }
     #passkey-login button[type="submit"],#passkey-register button[type="submit"] { width:100%; text-align:center; }
     .private-space .passkey-auth .small { margin:12px 0 0; }
+    body:not(.passkey-signed-in) > .private-space { order:-1; }
+    .private-space .public-preview-link { display:block; width:fit-content; margin:14px auto 0; color:var(--text-title); font-size:13px; }
+    .private-space .public-preview-link:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     .private-space button:focus-visible,.private-space input:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     .private-space button:disabled { opacity:.5; cursor:wait; }
     .private-space .small { font-size:13px; }
@@ -273,7 +276,7 @@
   </header>
 
   <!-- 핵심 역량 3D 카드 섹션 -->
-  <section>
+  <section id="public-cards">
     <div class="cards-grid">
       
       <!-- 카드 1: 성실함 -->
@@ -391,6 +394,7 @@
           <p class="small">등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
         </div>
       </div>
+      <a class="public-preview-link" href="#public-cards">로그인 없이 공개 소개 보기</a>
     </div>
     <div id="passkey-unlocked" hidden>
       <p><strong id="passkey-account"></strong> <button class="secondary" id="passkey-logout">로그아웃</button></p>
