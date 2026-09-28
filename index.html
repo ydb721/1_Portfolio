@@ -271,7 +271,7 @@
     body.passkey-signed-in > .private-space.add-form-open { padding-top:235px; }
     body.passkey-signed-in .private-label { visibility:hidden; }
     body.passkey-signed-in #private-title { display:none; }
-    .private-space .private-toolbar .toolbar-title { flex:0 0 auto; align-self:flex-start; margin:22px 0 0; transform:none; font-size:20px; }
+    .private-space .private-toolbar .toolbar-title { position:absolute; top:22px; left:50%; margin:0; transform:translateX(-50%); font-size:20px; white-space:nowrap; }
     .private-space .private-toolbar { position:absolute; top:14px; left:24px; right:24px; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
     .private-space .passkey-manager { flex:0 1 220px; min-width:0; padding:8px 10px; border:1px solid #c7d2fe; border-radius:10px; background:#fff; }
     .private-space .passkey-manager h3 { margin:0 0 4px; font-size:14px; text-align:center; }
@@ -280,9 +280,10 @@
     .private-space .passkey-manager li span { min-width:0; overflow-wrap:anywhere; }
     .private-space .passkey-manager li button { flex:none; margin:0; padding:5px 8px; font-size:12px; }
     .private-space .signed-in-controls { margin-left:auto; display:flex; align-items:center; justify-content:flex-end; gap:10px; padding-top:13px; }
-    .private-space .signed-in-controls .signed-in-account { margin:0; color:var(--text-title); font-size:13px; white-space:nowrap; }
+    .private-space .signed-in-controls .signed-in-account { margin:0; color:var(--text-title); font-size:16px; white-space:nowrap; }
     .private-space .signed-in-controls #passkey-logout { background:#fff; }
     .private-space .signed-in-controls #passkey-show-add { background:#fff; }
+    .private-space .signed-in-controls #passkey-show-add,.private-space .signed-in-controls #passkey-logout { width:88px; padding:9px 6px; font-size:13px; text-align:center; }
     .private-space #passkey-add { position:absolute; top:67px; right:24px; z-index:2; display:grid; gap:8px; width:min(280px, calc(100% - 48px)); margin:0; padding:14px; border:1px solid #c7d2fe; border-radius:10px; background:#fff; box-shadow:0 6px 18px rgba(79,70,229,.12); }
     .private-space #passkey-add label { width:100%; font-size:13px; }
     .private-space #passkey-add input,.private-space #passkey-add button { width:100%; max-width:none; }
@@ -291,7 +292,7 @@
       body.passkey-signed-in > .private-space,body.passkey-signed-in > .private-space.add-form-open { padding-top:24px; }
       .private-space .private-toolbar { position:static; flex-wrap:wrap; margin:0 0 16px; }
       .private-space .passkey-manager { flex:1 1 100%; }
-      .private-space .private-toolbar .toolbar-title { flex:1 1 100%; order:-1; margin:0 auto 8px; text-align:center; }
+      .private-space .private-toolbar .toolbar-title { position:static; flex:1 1 100%; order:-1; margin:0 auto 8px; transform:none; text-align:center; }
       .private-space .signed-in-controls { flex:1 1 100%; justify-content:center; padding-top:0; }
       .private-space #passkey-add { position:static; width:100%; margin:0 0 16px; box-shadow:none; }
     }
