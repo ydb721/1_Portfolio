@@ -9,6 +9,13 @@ async function api(path, options = {}) {
   return data;
 }
 const post = (path, data) => api(path, { method: 'POST', body: JSON.stringify(data) });
+function showAuthView(view) {
+  const isLogin = view === 'login';
+  $('#passkey-login-panel').hidden = !isLogin;
+  $('#passkey-register-panel').hidden = isLogin;
+  $('#passkey-show-login').setAttribute('aria-pressed', String(isLogin));
+  $('#passkey-show-register').setAttribute('aria-pressed', String(!isLogin));
+}
 function creationOptions(options) {
   return { ...options, challenge: bytes(options.challenge), user: { ...options.user, id: bytes(options.user.id) },
     excludeCredentials: options.excludeCredentials.map(item => ({ ...item, id: bytes(item.id) })) };
@@ -25,7 +32,7 @@ async function register(handle, name) {
     clientDataJSON: encoded(response.response.clientDataJSON), attestationObject: encoded(response.response.attestationObject) } };
   await post('/api/gateway?view=register-verify', { ceremony, credential });
   status('등록했습니다. 이제 패스키로 로그인해 주십시오. 패스키 목록은 로그인한 뒤 볼 수 있습니다.');
-  if (handle) $('#passkey-login [name="handle"]').value = handle;
+  if (handle) { $('#passkey-login [name="handle"]').value = handle; showAuthView('login'); }
 }
 async function login(handle) {
   const { ceremony, options } = await post('/api/gateway?view=login-options', { handle });
@@ -73,6 +80,8 @@ async function action(event, callback) {
 }
 $('#passkey-login').addEventListener('submit', event => action(event, form => login(form.get('handle'))));
 $('#passkey-register').addEventListener('submit', event => action(event, form => register(form.get('handle'), form.get('name'))));
+$('#passkey-show-login').addEventListener('click', () => showAuthView('login'));
+$('#passkey-show-register').addEventListener('click', () => showAuthView('register'));
 $('#passkey-add').addEventListener('submit', event => action(event, async form => { await register('', form.get('name')); await refresh(); }));
 $('#passkey-logout').addEventListener('click', async () => {
   try { await post('/api/gateway?view=logout', {}); await refresh(); status('로그아웃했습니다. 비공개 내용은 화면에서 지웠습니다.'); }
