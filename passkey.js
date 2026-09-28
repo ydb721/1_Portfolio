@@ -58,14 +58,13 @@ async function login(handle, usePhone = false) {
   await post('/api/gateway?view=login-verify', { ceremony, credential });
   status('패스키 서명을 확인했습니다.');
   await refresh();
-  $('.private-space').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  $('#private-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 async function refresh() {
   const me = await api('/api/gateway?view=me');
   document.body.classList.toggle('passkey-signed-in', Boolean(me.handle));
   $('.private-space').classList.toggle('keys-many', (me.passkeys?.length || 0) === 2);
   $('.private-space').classList.toggle('keys-several', (me.passkeys?.length || 0) > 2);
-  $('.private-space').setAttribute('aria-labelledby', me.handle ? 'private-title-signed-in' : 'private-title');
   if (!me.handle) setPublicPreview(false);
   $('#passkey-locked').hidden = Boolean(me.handle);
   $('#passkey-unlocked').hidden = !me.handle;
