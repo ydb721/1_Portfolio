@@ -267,7 +267,7 @@
     .private-space ul { padding-left:20px; }
     .private-space li { margin:8px 0; }
     .private-space li button { margin-left:8px; }
-    body.passkey-signed-in > .private-space { order:-1; padding-top:148px; }
+    body.passkey-signed-in > .private-space { order:-1; padding-top:95px; padding-bottom:12px; }
     body.passkey-signed-in > .private-space.add-form-open { padding-top:235px; }
     body.passkey-signed-in .private-label { visibility:hidden; }
     body.passkey-signed-in #private-title { display:none; }
@@ -298,6 +298,7 @@
     }
     .private-space [hidden] { display:none !important; }
     #passkey-status { min-height:24px; color:#64748b; font-size:13px; font-weight:400; letter-spacing:.04em; text-align:center; }
+    #passkey-status:empty { display:none; }
     @media(max-width:700px) { .private-space .note-grid { grid-template-columns:1fr; } .private-space li button { display:block; margin:7px 0; } }
   </style>
 </head>
