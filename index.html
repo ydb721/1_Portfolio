@@ -257,6 +257,7 @@
     body:not(.passkey-signed-in):not(.public-preview-open) > #public-cards,
     body:not(.passkey-signed-in):not(.public-preview-open) > footer { display:none; }
     .private-space .public-preview-link { display:block; width:fit-content; margin:14px auto 0; padding:0; border:0; background:transparent; color:var(--text-title); font-size:13px; font-weight:400; text-decoration:underline; }
+    body.public-preview-open .private-space .public-preview-link { position:fixed; top:12px; right:12px; z-index:10; margin:0; padding:8px 12px; border:1px solid #a5b4fc; border-radius:7px; background:#fff; box-shadow:0 4px 14px rgba(79,70,229,.12); text-decoration:none; }
     .private-space .public-preview-link:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     .private-space button:focus-visible,.private-space input:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     .private-space button:disabled { opacity:.5; cursor:wait; }
