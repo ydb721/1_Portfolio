@@ -51,7 +51,7 @@ async function login(handle, usePhone = false) {
   await post('/api/gateway?view=login-verify', { ceremony, credential });
   status('패스키 서명을 확인했습니다.');
   await refresh();
-  $('#public-cards').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  $('.private-space').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 async function refresh() {
   const me = await api('/api/gateway?view=me');
