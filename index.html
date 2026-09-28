@@ -232,7 +232,7 @@
       }
     }
     /* 공개 소개의 카드 스타일을 유지하고, 잠긴 자리의 경계를 분명히 표시한다. */
-    .private-space { background:#f8faff; border:2px solid #c7d2fe; border-radius:18px; padding:24px; margin-top:12px; box-shadow:0 4px 14px rgba(79,70,229,.08); }
+    .private-space { position:relative; background:#f8faff; border:2px solid #c7d2fe; border-radius:18px; padding:24px; margin-top:12px; box-shadow:0 4px 14px rgba(79,70,229,.08); }
     .private-space h2 { color:var(--text-title); font-size:22px; width:fit-content; margin:1px auto 6px; padding:4px 14px; background:var(--primary-soft); border-radius:6px; text-align:center; transform:translateY(-14px); }
     .private-space h3 { color:var(--text-title); font-size:17px; margin:16px 0 6px; }
     .private-label { color:#64748b; font-weight:400; font-size:13px; letter-spacing:.04em; text-align:right; transform:translateY(-6px); }
@@ -269,8 +269,12 @@
     .private-space li button { margin-left:8px; }
     .private-space .signed-in-card { max-width:440px; margin:20px auto 0; padding:18px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; text-align:center; }
     .private-space .signed-in-account { margin:0 0 12px; color:var(--text-title); font-size:16px; }
-    .private-space #passkey-logout { position:absolute; top:20px; right:20px; z-index:3; background:#fff; box-shadow:0 2px 8px rgba(79,70,229,.12); }
-    @media(max-width:700px) { body.passkey-signed-in > header { padding-top:48px; } }
+    .private-space .signed-in-controls { position:absolute; top:18px; right:24px; display:flex; align-items:center; justify-content:flex-end; gap:10px; }
+    .private-space .signed-in-controls .signed-in-account { margin:0; color:var(--text-title); font-size:14px; }
+    .private-space .signed-in-controls #passkey-logout { background:#fff; }
+    body.passkey-signed-in > .private-space { order:-1; }
+    body.passkey-signed-in .private-label { visibility:hidden; }
+    @media(max-width:700px) { body.passkey-signed-in > .private-space { padding-top:74px; } .private-space .signed-in-controls { top:14px; right:16px; gap:8px; } }
     .private-space .passkey-manager { max-width:440px; margin:20px auto 0; padding:18px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
     .private-space .passkey-manager h3 { margin:0 0 12px; text-align:center; }
     .private-space .passkey-manager ul { list-style:none; padding:0; margin:0; }
@@ -415,9 +419,9 @@
       <button class="public-preview-link" id="passkey-public-preview" type="button" aria-expanded="false" aria-controls="public-cards">로그인 없이 공개 소개 보기</button>
     </div>
     <div id="passkey-unlocked" hidden>
-      <button class="secondary" id="passkey-logout" type="button">로그아웃</button>
-      <div class="signed-in-card">
+      <div class="signed-in-controls">
         <p class="signed-in-account"><strong id="passkey-account"></strong></p>
+        <button class="secondary" id="passkey-logout" type="button">로그아웃</button>
       </div>
       <div id="passkey-notes" class="note-grid"></div>
       <div class="passkey-manager">
