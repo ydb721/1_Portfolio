@@ -256,7 +256,9 @@
     .private-space .passkey-auth input { width:100%; max-width:none; font-weight:400; }
     #passkey-login button[type="submit"],#passkey-register button[type="submit"] { width:100%; text-align:center; }
     #passkey-login button[value="phone"] { background:#fff; font-weight:400; }
-    .private-space .passkey-auth .small { margin:12px 0 0; }
+    #passkey-register-panel { flex:1; display:flex; align-items:center; }
+    .private-space #passkey-register-panel #passkey-register { width:100%; margin:0; }
+    #register-guidance { max-width:440px; margin:12px auto 0; text-align:center; }
     body:not(.passkey-signed-in) > .private-space { order:-1; }
     body:not(.passkey-signed-in):not(.public-preview-open) > header,
     body:not(.passkey-signed-in):not(.public-preview-open) > #public-cards,
@@ -435,9 +437,9 @@
         </div>
         <div id="passkey-register-panel" hidden>
           <form id="passkey-register"><label>새 계정명<input name="handle" required pattern="[a-z0-9_-]{3,24}" placeholder="계정 이름"></label><label>패스키 이름<input name="name" required maxlength="40" placeholder="PC 패스키"></label><button type="submit">등록</button></form>
-          <p class="small">등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
         </div>
       </div>
+      <p id="register-guidance" class="small" hidden>등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
     </div>
     <div id="passkey-unlocked" hidden>
       <div class="private-toolbar">
