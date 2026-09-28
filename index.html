@@ -232,16 +232,16 @@
       }
     }
     /* 공개 소개의 카드 스타일을 유지하고, 잠긴 자리의 경계를 분명히 표시한다. */
-    .private-space { background:#fff; border:2px solid var(--primary); border-radius:18px; padding:24px; margin-top:12px; }
+    .private-space { background:#f8faff; border:2px solid #c7d2fe; border-radius:18px; padding:24px; margin-top:12px; box-shadow:0 4px 14px rgba(79,70,229,.08); }
     .private-space h2 { color:var(--text-title); font-size:22px; margin:5px 0 10px; }
     .private-space h3 { color:var(--text-title); font-size:17px; margin:16px 0 6px; }
-    .private-label { color:var(--primary); font-weight:800; font-size:13px; letter-spacing:.04em; }
+    .private-label { color:var(--text-title); font-weight:800; font-size:13px; letter-spacing:.04em; }
     .private-space p { margin:8px 0; }
     .private-space form { display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px; margin:16px 0; }
     .private-space label { display:grid; gap:5px; font-weight:700; }
-    .private-space input { font:inherit; border:1px solid #7773a0; border-radius:7px; padding:9px; max-width:210px; }
-    .private-space button { border:0; border-radius:7px; padding:10px 14px; background:var(--primary); color:#fff; font:inherit; font-weight:700; cursor:pointer; }
-    .private-space button.secondary { background:#fff; border:1px solid var(--primary); color:var(--primary); }
+    .private-space input { font:inherit; border:1px solid #a5b4fc; border-radius:7px; padding:9px; max-width:210px; background:#fff; }
+    .private-space button { border:1px solid #a5b4fc; border-radius:7px; padding:10px 14px; background:#e0e7ff; color:var(--text-title); font:inherit; font-weight:700; cursor:pointer; }
+    .private-space button.secondary { background:#fff; border:1px solid #a5b4fc; color:var(--text-title); }
     .private-space button:focus-visible,.private-space input:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     .private-space button:disabled { opacity:.5; cursor:wait; }
     .private-space .small { font-size:13px; }
