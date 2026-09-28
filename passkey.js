@@ -44,9 +44,11 @@ async function login(handle) {
   await post('/api/gateway?view=login-verify', { ceremony, credential });
   status('패스키 서명을 확인했습니다.');
   await refresh();
+  $('#public-cards').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 async function refresh() {
   const me = await api('/api/gateway?view=me');
+  document.body.classList.toggle('passkey-signed-in', Boolean(me.handle));
   $('#passkey-locked').hidden = Boolean(me.handle);
   $('#passkey-unlocked').hidden = !me.handle;
   if (!me.handle) { $('#passkey-notes').replaceChildren(); $('#passkey-list').replaceChildren(); return; }
