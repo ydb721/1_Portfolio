@@ -57,8 +57,8 @@ async function login(handle, usePhone = false) {
   const credential = { id: encoded(response.rawId), response: { clientDataJSON: encoded(response.response.clientDataJSON),
     authenticatorData: encoded(response.response.authenticatorData), signature: encoded(response.response.signature) } };
   await post('/api/gateway?view=login-verify', { ceremony, credential });
-  status('패스키 서명을 확인했습니다.');
   await refresh();
+  status('');
   $('.private-space').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 async function refresh() {
@@ -85,7 +85,7 @@ async function refresh() {
     button.textContent = '삭제'; button.className = 'secondary';
     button.addEventListener('click', async () => {
       if (!confirm(`${key.name} 패스키를 계정에서 삭제하시겠습니까?`)) return;
-      try { await api(`/api/gateway?view=passkey&id=${encodeURIComponent(key.id)}`, { method: 'DELETE' }); status('패스키를 삭제했습니다.'); await refresh(); }
+      try { await api(`/api/gateway?view=passkey&id=${encodeURIComponent(key.id)}`, { method: 'DELETE' }); await refresh(); status(''); }
       catch (error) { status(error.message); }
     });
     li.append(label, button); return li;
@@ -117,7 +117,7 @@ $('#passkey-add').addEventListener('submit', event => action(event, async form =
   if (await register('', form.get('name'))) { setAddForm(false); await refresh(); }
 }));
 $('#passkey-logout').addEventListener('click', async () => {
-  try { await post('/api/gateway?view=logout', {}); await refresh(); status('로그아웃했습니다. 비공개 내용은 화면에서 지웠습니다.'); }
+  try { await post('/api/gateway?view=logout', {}); await refresh(); status(''); }
   catch (error) { status(error.message); }
 });
 refresh().catch(error => status(error.message));
