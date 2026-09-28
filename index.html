@@ -269,7 +269,8 @@
     .private-space li button { margin-left:8px; }
     .private-space .signed-in-card { max-width:440px; margin:20px auto 0; padding:18px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; text-align:center; }
     .private-space .signed-in-account { margin:0 0 12px; color:var(--text-title); font-size:16px; }
-    .private-space .signed-in-card #passkey-logout { display:block; width:100%; }
+    .private-space #passkey-logout { position:absolute; top:20px; right:20px; z-index:3; background:#fff; box-shadow:0 2px 8px rgba(79,70,229,.12); }
+    @media(max-width:700px) { body.passkey-signed-in > header { padding-top:48px; } }
     .private-space .passkey-manager { max-width:440px; margin:20px auto 0; padding:18px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
     .private-space .passkey-manager h3 { margin:0 0 12px; text-align:center; }
     .private-space .passkey-manager ul { list-style:none; padding:0; margin:0; }
@@ -414,9 +415,9 @@
       <button class="public-preview-link" id="passkey-public-preview" type="button" aria-expanded="false" aria-controls="public-cards">로그인 없이 공개 소개 보기</button>
     </div>
     <div id="passkey-unlocked" hidden>
+      <button class="secondary" id="passkey-logout" type="button">로그아웃</button>
       <div class="signed-in-card">
         <p class="signed-in-account"><strong id="passkey-account"></strong></p>
-        <button class="secondary" id="passkey-logout" type="button">로그아웃</button>
       </div>
       <div id="passkey-notes" class="note-grid"></div>
       <div class="passkey-manager">
