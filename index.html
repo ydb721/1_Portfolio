@@ -251,6 +251,7 @@
     .private-space .passkey-auth label { width:100%; }
     .private-space .passkey-auth input { width:100%; max-width:none; }
     #passkey-login button[type="submit"],#passkey-register button[type="submit"] { width:100%; text-align:center; }
+    #passkey-login button[value="phone"] { background:#fff; font-weight:400; }
     .private-space .passkey-auth .small { margin:12px 0 0; }
     body:not(.passkey-signed-in) > .private-space { order:-1; }
     body:not(.passkey-signed-in):not(.public-preview-open) > header,
@@ -390,7 +391,7 @@
           <button id="passkey-show-register" type="button" aria-pressed="false" aria-controls="passkey-register-panel">계정 등록</button>
         </div>
         <div id="passkey-login-panel">
-          <form id="passkey-login"><label>계정명<input name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="계정 이름"></label><button type="submit">로그인</button></form>
+          <form id="passkey-login"><label>계정명<input name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="계정 이름"></label><button type="submit">로그인</button><button type="submit" value="phone">휴대전화 패스키로 로그인</button></form>
         </div>
         <div id="passkey-register-panel" hidden>
           <form id="passkey-register"><label>새 계정명<input name="handle" required pattern="[a-z0-9_-]{3,24}" placeholder="계정 이름"></label><label>패스키 이름<input name="name" required maxlength="40" placeholder="PC 패스키"></label><button type="submit">등록</button></form>
