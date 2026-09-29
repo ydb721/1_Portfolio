@@ -242,24 +242,20 @@
     .private-space input { font:inherit; border:1px solid #a5b4fc; border-radius:7px; padding:9px; max-width:210px; background:#fff; }
     .private-space button { border:1px solid #a5b4fc; border-radius:7px; padding:10px 14px; background:#e0e7ff; color:var(--text-title); font:inherit; font-weight:700; cursor:pointer; }
     .private-space button.secondary { background:#fff; border:1px solid #a5b4fc; color:var(--text-title); }
-    .passkey-auth { display:flex; flex-direction:column; width:100%; max-width:440px; min-height:400px; margin:20px auto 0; padding:18px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
-    .passkey-auth-tabs { display:flex; gap:8px; }
-    .private-space .passkey-auth-tabs button { flex:1; background:#fff; font-weight:400; }
-    .private-space .passkey-auth-tabs button[aria-pressed="true"] { background:#e0e7ff; font-weight:700; }
-    .private-space .passkey-auth form { display:grid; gap:12px; margin:18px 0 0; }
-    #passkey-login-panel { flex:1; display:flex; align-items:center; }
-    .private-space #passkey-login-panel #passkey-login { width:100%; margin:0; }
-    #passkey-login button[type="submit"]:first-of-type { margin-top:16px; }
-    #passkey-register button[type="submit"] { margin-top:16px; }
-    .private-space .passkey-auth label { width:100%; }
-    .private-space #passkey-register label,.private-space #passkey-login label { display:grid; grid-template-columns:100px minmax(0,1fr); align-items:center; gap:12px; text-align:center; }
-    .private-space #passkey-register input,.private-space #passkey-login input { text-align:left; }
-    .private-space .passkey-auth input { width:100%; max-width:none; font-weight:400; }
-    #passkey-login button[type="submit"],#passkey-register button[type="submit"] { width:100%; text-align:center; }
-    #passkey-login button[value="phone"] { background:#fff; font-weight:400; }
-    #passkey-register-panel { flex:1; display:flex; align-items:center; }
-    .private-space #passkey-register-panel #passkey-register { width:100%; margin:0; }
-    .private-space .passkey-auth #register-guidance { margin:12px 0 18px; text-align:center; }
+    .passkey-auth { width:100%; max-width:880px; margin:20px auto 0; padding:24px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
+    .passkey-auth-section + .passkey-auth-section { border-top:1px solid #e0e7ff; margin-top:24px; padding-top:24px; }
+    .passkey-auth-section h3 { margin:0 0 14px; text-align:left; font-size:17px; }
+    .private-space .passkey-auth form { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:10px; margin:0; }
+    .private-space #passkey-register { grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto; }
+    .private-space .passkey-auth label { width:100%; font-size:13px; }
+    .private-space .passkey-auth input { display:block; width:100%; max-width:none; margin-top:6px; font-weight:400; }
+    .private-space .passkey-auth button[type="submit"] { min-width:96px; min-height:42px; }
+    .private-space .passkey-auth .phone-login { display:block; width:fit-content; margin:8px 0 0; padding:2px 0; border:0; background:transparent; font-size:12px; font-weight:400; text-decoration:underline; }
+    .private-space .passkey-auth #register-guidance { margin:12px 0 0; font-size:12px; font-weight:400; text-align:left; }
+    @media(max-width:700px) {
+      .private-space .passkey-auth form,.private-space #passkey-register { grid-template-columns:1fr; }
+      .private-space .passkey-auth button[type="submit"] { width:100%; }
+    }
     body:not(.passkey-signed-in) > .private-space { order:-1; }
     body:not(.passkey-signed-in):not(.public-preview-open) > header,
     body:not(.passkey-signed-in):not(.public-preview-open) > #public-cards,
@@ -431,17 +427,16 @@
   <section class="private-space" aria-labelledby="private-title">
     <div id="passkey-locked">
       <div class="passkey-auth">
-        <div class="passkey-auth-tabs" role="group" aria-label="패스키 인증 화면 선택">
-          <button id="passkey-show-login" type="button" aria-pressed="true" aria-controls="passkey-login-panel">로그인</button>
-          <button id="passkey-show-register" type="button" aria-pressed="false" aria-controls="passkey-register-panel">계정 등록</button>
+        <div class="passkey-auth-section">
+          <h3>기존 패스키로 로그인</h3>
+          <form id="passkey-login"><label for="passkey-login-handle">계정명<input id="passkey-login-handle" name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="계정 이름"></label><button type="submit">로그인</button></form>
+          <button class="phone-login" id="passkey-phone-login" type="button">휴대전화 패스키로 로그인</button>
         </div>
-        <div id="passkey-login-panel">
-          <form id="passkey-login"><label for="passkey-login-handle">계정명<input id="passkey-login-handle" name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="계정 이름"></label><button type="submit">로그인</button><button type="submit" value="phone">휴대전화 패스키로 로그인</button></form>
-        </div>
-        <div id="passkey-register-panel" hidden>
+        <div class="passkey-auth-section">
+          <h3>새 패스키 등록</h3>
           <form id="passkey-register"><label>새 계정명<input name="handle" required pattern="[a-z0-9_-]{3,24}" placeholder="계정 이름"></label><label>패스키 이름<input name="name" required maxlength="40" placeholder="PC 패스키"></label><button type="submit">등록</button></form>
+          <p id="register-guidance" class="small">등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
         </div>
-        <p id="register-guidance" class="small" hidden>등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
       </div>
     </div>
     <div id="passkey-unlocked" hidden>
