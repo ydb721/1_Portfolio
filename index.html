@@ -253,8 +253,9 @@
     .private-space .passkey-auth input { display:block; width:100%; max-width:none; margin-top:0; font-weight:400; }
     .private-space .passkey-auth input,.private-space .passkey-auth button[type="submit"] { height:44px; box-sizing:border-box; }
     .private-space .passkey-auth button[type="submit"] { min-width:76px; padding:0 10px; }
-    .private-space .passkey-auth #register-guidance { margin:12px 0 0; font-size:12px; font-weight:400; text-align:center; }
+    .private-space .passkey-auth #register-guidance { width:max-content; max-width:calc(100vw - 48px); margin:12px 0 0; position:relative; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:12px; font-weight:400; text-align:center; }
     @media(max-width:700px) {
+      .private-space .passkey-auth #register-guidance { width:auto; left:auto; transform:none; white-space:normal; }
       .private-space .passkey-auth form,.private-space #passkey-register { grid-template-columns:1fr; }
       .private-space .passkey-auth button[type="submit"] { width:100%; }
     }
