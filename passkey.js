@@ -15,13 +15,14 @@ async function api(path, options = {}) {
 }
 const post = (path, data) => api(path, { method: 'POST', body: JSON.stringify(data) });
 function setPasskeyList(open) {
+  if (open) setAddForm(false);
   $('#passkey-list-panel').hidden = !open;
   $('#passkey-show-list').setAttribute('aria-expanded', String(open));
 }
 function setAddForm(open) {
+  if (open) setPasskeyList(false);
   $('#passkey-add').hidden = !open;
   $('#passkey-show-add').setAttribute('aria-expanded', String(open));
-  $('.private-space').classList.toggle('add-form-open', open);
   if (open) $('#passkey-add [name="name"]').focus();
 }
 function creationOptions(options) {
@@ -99,6 +100,15 @@ $('#passkey-show-list').addEventListener('click', () => setPasskeyList($('#passk
 document.addEventListener('click', event => { if (!$('#passkey-list-panel').hidden && !event.target.closest('.passkey-list-anchor')) setPasskeyList(false); });
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && !$('#passkey-list-panel').hidden) { setPasskeyList(false); $('#passkey-show-list').focus(); } });
 $('#passkey-show-add').addEventListener('click', () => setAddForm($('#passkey-add').hidden));
+document.addEventListener('click', event => {
+  if (!$('#passkey-add').hidden && !event.target.closest('.passkey-add-anchor')) setAddForm(false);
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && !$('#passkey-add').hidden) {
+    setAddForm(false);
+    $('#passkey-show-add').focus();
+  }
+});
 $('#passkey-add').addEventListener('submit', event => action(event, async form => {
   if (await register('', form.get('name'))) { setAddForm(false); await refresh(); }
 }));
