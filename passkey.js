@@ -96,18 +96,7 @@ async function action(event, callback) {
   } catch (error) { status(error.message); }
   finally { button.disabled = false; }
 }
-$('#passkey-login').addEventListener('submit', event => action(event, form => login(form.get('handle'))));
-$('#passkey-phone-login').addEventListener('click', async event => {
-  const form = $('#passkey-login');
-  if (!form.reportValidity()) return;
-  const button = event.currentTarget;
-  button.disabled = true;
-  try {
-    if (!window.PublicKeyCredential || !window.isSecureContext) throw Error('HTTPS와 패스키 지원 브라우저가 필요합니다.');
-    await login(new FormData(form).get('handle'), true);
-  } catch (error) { status(error.message); }
-  finally { button.disabled = false; }
-});
+$('#passkey-login').addEventListener('submit', event => action(event, form => login(form.get('handle'), true)));
 $('#passkey-register').addEventListener('submit', event => action(event, form => register(form.get('handle'), form.get('name'))));
 $('#passkey-public-preview').addEventListener('click', () => {
   const open = !document.body.classList.contains('public-preview-open');
