@@ -9,12 +9,6 @@ async function api(path, options = {}) {
   return data;
 }
 const post = (path, data) => api(path, { method: 'POST', body: JSON.stringify(data) });
-function setPublicPreview(open) {
-  document.body.classList.toggle('public-preview-open', open);
-  const button = $('#passkey-public-preview');
-  button.textContent = open ? '공개 카드 접기' : '로그인 없이 공개 카드 보기';
-  button.setAttribute('aria-expanded', String(open));
-}
 function setPasskeyList(open) {
   $('#passkey-list-panel').hidden = !open;
   $('#passkey-show-list').setAttribute('aria-expanded', String(open));
@@ -62,7 +56,6 @@ async function refresh() {
   const me = await api('/api/gateway?view=me');
   document.body.classList.toggle('passkey-signed-in', Boolean(me.handle));
   $('.private-space').setAttribute('aria-labelledby', me.handle ? 'private-title-signed-in' : 'private-title');
-  if (!me.handle) setPublicPreview(false);
   $('#passkey-locked').hidden = Boolean(me.handle);
   $('#passkey-unlocked').hidden = !me.handle;
   if (!me.handle) { setPasskeyList(false); $('#passkey-notes').replaceChildren(); $('#passkey-list').replaceChildren(); setAddForm(false); return; }
@@ -98,10 +91,6 @@ async function action(event, callback) {
 }
 $('#passkey-login').addEventListener('submit', event => action(event, form => login(form.get('handle'), true)));
 $('#passkey-register').addEventListener('submit', event => action(event, form => register(form.get('handle'), form.get('name'))));
-$('#passkey-public-preview').addEventListener('click', () => {
-  const open = !document.body.classList.contains('public-preview-open');
-  setPublicPreview(open);
-});
 $('#passkey-show-list').addEventListener('click', () => setPasskeyList($('#passkey-list-panel').hidden));
 document.addEventListener('click', event => { if (!$('#passkey-list-panel').hidden && !event.target.closest('.passkey-list-anchor')) setPasskeyList(false); });
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && !$('#passkey-list-panel').hidden) { setPasskeyList(false); $('#passkey-show-list').focus(); } });
