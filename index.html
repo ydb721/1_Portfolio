@@ -315,7 +315,7 @@
     .public-space { background:#f8faff; border:2px solid #c7d2fe; border-radius:18px; padding:24px; box-shadow:0 4px 14px rgba(79,70,229,.08); }
     .public-space header { margin-bottom:24px; }
     .public-guidance { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:6px 16px; margin-top:16px; padding:0; }
-    .private-space .private-toolbar { grid-template-columns:auto minmax(0,1fr) auto; }
+    .private-space .private-toolbar { grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); }
     .private-space .private-toolbar .toolbar-title { justify-self:center; font-size:clamp(20px,2.5vw,28px); white-space:normal; }
     .private-space .signed-in-controls { gap:8px; }
     .private-space .signed-in-controls #passkey-show-add { width:52px; flex:none; }
@@ -335,6 +335,8 @@
     .private-space .passkey-recovery-guide { margin-top:12px; padding-top:12px; border-top:1px solid #e0e7ff; }
     .private-space .passkey-recovery-guide h3 { margin:0 0 6px; font-size:13px; font-weight:700; }
     .private-space .passkey-recovery-guide p { margin:0; font-size:12px; font-weight:400; line-height:1.7; color:var(--text-sub); }
+    .private-space .signed-in-controls { min-width:0; max-width:100%; flex-wrap:wrap; }
+    .private-space .signed-in-controls .signed-in-account { max-width:100%; white-space:normal; overflow-wrap:anywhere; }
   </style>
 </head>
 <body>
