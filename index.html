@@ -243,12 +243,13 @@
     .private-space button { border:1px solid #a5b4fc; border-radius:7px; padding:10px 14px; background:#e0e7ff; color:var(--text-title); font:inherit; font-weight:700; cursor:pointer; }
     .private-space button.secondary { background:#fff; border:1px solid #a5b4fc; color:var(--text-title); }
     .passkey-auth { width:100%; max-width:880px; margin:20px auto 0; padding:24px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
-    .passkey-auth-section + .passkey-auth-section { margin-top:24px; }
+    .passkey-auth-section + .passkey-auth-section { margin-top:40px; }
     .passkey-auth-section h3 { margin:0 0 14px; text-align:left; font-size:17px; }
     .private-space .passkey-auth form { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:10px; margin:0; }
     .private-space #passkey-register { grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto; }
-    .private-space .passkey-auth label { width:100%; font-size:13px; }
-    .private-space .passkey-auth input { display:block; width:100%; max-width:none; margin-top:6px; font-weight:400; }
+    .private-space .passkey-auth label { position:relative; width:100%; font-size:13px; }
+    .private-space .passkey-auth label .field-label { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .private-space .passkey-auth input { display:block; width:100%; max-width:none; margin-top:0; font-weight:400; }
     .private-space .passkey-auth input,.private-space .passkey-auth button[type="submit"] { height:44px; box-sizing:border-box; }
     .private-space .passkey-auth button[type="submit"] { min-width:76px; padding:0 10px; }
     .private-space .passkey-auth #register-guidance { margin:12px 0 0; font-size:12px; font-weight:400; text-align:center; }
@@ -429,11 +430,11 @@
       <div class="passkey-auth">
         <div class="passkey-auth-section">
           <h3>기존 패스키로 로그인</h3>
-          <form id="passkey-login"><label for="passkey-login-handle">계정명<input id="passkey-login-handle" name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="계정 이름"></label><button type="submit">로그인</button></form>
+          <form id="passkey-login"><label for="passkey-login-handle"><span class="field-label">계정명</span><input id="passkey-login-handle" name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="계정 이름 입력"></label><button type="submit">로그인</button></form>
         </div>
         <div class="passkey-auth-section">
           <h3>새 패스키 등록</h3>
-          <form id="passkey-register"><label>새 계정명<input name="handle" required pattern="[a-z0-9_-]{3,24}" placeholder="계정 이름"></label><label>패스키 이름<input name="name" required maxlength="40" placeholder="PC 패스키"></label><button type="submit">등록</button></form>
+          <form id="passkey-register"><label><span class="field-label">새 계정명</span><input name="handle" required pattern="[a-z0-9_-]{3,24}" placeholder="새 계정 이름"></label><label><span class="field-label">패스키 이름</span><input name="name" required maxlength="40" placeholder="패스키 이름 (예: PC)"></label><button type="submit">등록</button></form>
           <p id="register-guidance" class="small">등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
         </div>
       </div>
