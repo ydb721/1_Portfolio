@@ -242,14 +242,15 @@
     .private-space input { font:inherit; border:1px solid #a5b4fc; border-radius:7px; padding:9px; max-width:210px; background:#fff; }
     .private-space button { border:1px solid #a5b4fc; border-radius:7px; padding:10px 14px; background:#e0e7ff; color:var(--text-title); font:inherit; font-weight:700; cursor:pointer; }
     .private-space button.secondary { background:#fff; border:1px solid #a5b4fc; color:var(--text-title); }
-    .passkey-auth { width:100%; max-width:880px; margin:20px auto 0; padding:24px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
+    .passkey-auth { width:100%; max-width:440px; margin:20px auto 0; padding:24px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
     .passkey-auth-section + .passkey-auth-section { border-top:1px solid #e0e7ff; margin-top:24px; padding-top:24px; }
     .passkey-auth-section h3 { margin:0 0 14px; text-align:left; font-size:17px; }
     .private-space .passkey-auth form { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:10px; margin:0; }
     .private-space #passkey-register { grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto; }
     .private-space .passkey-auth label { width:100%; font-size:13px; }
     .private-space .passkey-auth input { display:block; width:100%; max-width:none; margin-top:6px; font-weight:400; }
-    .private-space .passkey-auth button[type="submit"] { min-width:96px; min-height:42px; }
+    .private-space .passkey-auth input,.private-space .passkey-auth button[type="submit"] { height:44px; box-sizing:border-box; }
+    .private-space .passkey-auth button[type="submit"] { min-width:76px; padding:0 10px; }
     .private-space .passkey-auth #register-guidance { margin:12px 0 0; font-size:12px; font-weight:400; text-align:left; }
     @media(max-width:700px) {
       .private-space .passkey-auth form,.private-space #passkey-register { grid-template-columns:1fr; }
