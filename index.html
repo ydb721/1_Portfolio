@@ -250,7 +250,6 @@
     .private-space .passkey-auth label { width:100%; font-size:13px; }
     .private-space .passkey-auth input { display:block; width:100%; max-width:none; margin-top:6px; font-weight:400; }
     .private-space .passkey-auth button[type="submit"] { min-width:96px; min-height:42px; }
-    .private-space .passkey-auth .phone-login { display:block; width:fit-content; margin:8px 0 0; padding:2px 0; border:0; background:transparent; font-size:12px; font-weight:400; text-decoration:underline; }
     .private-space .passkey-auth #register-guidance { margin:12px 0 0; font-size:12px; font-weight:400; text-align:left; }
     @media(max-width:700px) {
       .private-space .passkey-auth form,.private-space #passkey-register { grid-template-columns:1fr; }
@@ -430,7 +429,6 @@
         <div class="passkey-auth-section">
           <h3>기존 패스키로 로그인</h3>
           <form id="passkey-login"><label for="passkey-login-handle">계정명<input id="passkey-login-handle" name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="계정 이름"></label><button type="submit">로그인</button></form>
-          <button class="phone-login" id="passkey-phone-login" type="button">휴대전화 패스키로 로그인</button>
         </div>
         <div class="passkey-auth-section">
           <h3>새 패스키 등록</h3>
