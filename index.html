@@ -262,7 +262,8 @@
     body:not(.passkey-signed-in) > .private-space { order:-1; }
     .private-description-row { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; column-gap:12px; row-gap:4px; margin:20px auto 0; }
     .private-description-row .private-description { margin:0; }
-    .private-space button:focus-visible,.private-space input:focus-visible { outline:2px solid #a5b4fc; outline-offset:3px; }
+    .private-space button:focus-visible { outline:2px solid #a5b4fc; outline-offset:3px; }
+    .private-space input:focus { outline:2px solid #a5b4fc; outline-offset:3px; border-color:#a5b4fc; }
     .private-space button:disabled { opacity:.5; cursor:wait; }
     .private-space .small { color:var(--text-sub); font-size:13.5px; font-weight:600; }
     .private-space .note-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin:16px 0; }
