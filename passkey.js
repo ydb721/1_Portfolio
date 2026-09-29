@@ -1,7 +1,12 @@
 const $ = selector => document.querySelector(selector);
 const bytes = value => Uint8Array.from(atob(value.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - value.length % 4) % 4)), c => c.charCodeAt(0));
 const encoded = value => btoa(String.fromCharCode(...new Uint8Array(value))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-const status = message => { $('#passkey-status').textContent = message; };
+const status = message => {
+  const dialog = $('#passkey-dialog');
+  if (!message) { if (dialog.open) dialog.close(); return; }
+  $('#passkey-dialog-message').textContent = message;
+  if (!dialog.open) dialog.showModal();
+};
 async function api(path, options = {}) {
   const res = await fetch(path, { credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, ...options });
   const data = await res.json();
@@ -12,7 +17,6 @@ const post = (path, data) => api(path, { method: 'POST', body: JSON.stringify(da
 function setPasskeyList(open) {
   $('#passkey-list-panel').hidden = !open;
   $('#passkey-show-list').setAttribute('aria-expanded', String(open));
-  if (open) $('#passkey-list-status').textContent = '';
 }
 function setAddForm(open) {
   $('#passkey-add').hidden = !open;
@@ -36,8 +40,8 @@ async function register(handle, name) {
   const credential = { id: encoded(response.rawId), response: {
     clientDataJSON: encoded(response.response.clientDataJSON), attestationObject: encoded(response.response.attestationObject) } };
   await post('/api/gateway?view=register-verify', { ceremony, credential });
-  status('등록했습니다. 이제 패스키로 로그인해 주십시오. 패스키 목록은 로그인한 뒤 볼 수 있습니다.');
-  if (handle) { $('#passkey-login [name="handle"]').value = handle; $('#passkey-login [name="handle"]').focus(); }
+  status(handle ? '등록했습니다. 이제 새 패스키로 로그인해 주십시오.' : '패스키를 추가했습니다. 등록한 패스키 목록에서 확인할 수 있습니다.');
+  if (handle) { $('#passkey-login [name="handle"]').value = handle;  }
   return true;
 }
 async function login(handle, usePhone = false) {
@@ -73,8 +77,8 @@ async function refresh() {
     button.textContent = '삭제'; button.className = 'secondary';
     button.addEventListener('click', async () => {
       if (!confirm(`${key.name} 패스키를 계정에서 삭제하시겠습니까?`)) return;
-      try { await api(`/api/gateway?view=passkey&id=${encodeURIComponent(key.id)}`, { method: 'DELETE' }); await refresh(); $('#passkey-list-status').textContent = ''; }
-      catch (error) { $('#passkey-list-status').textContent = error.message; }
+      try { await api(`/api/gateway?view=passkey&id=${encodeURIComponent(key.id)}`, { method: 'DELETE' }); await refresh(); status('패스키를 삭제했습니다.'); }
+      catch (error) { status(error.message); }
     });
     li.append(label, button); return li;
   }));
@@ -101,5 +105,8 @@ $('#passkey-add').addEventListener('submit', event => action(event, async form =
 $('#passkey-logout').addEventListener('click', async () => {
   try { await post('/api/gateway?view=logout', {}); await refresh(); status(''); }
   catch (error) { status(error.message); }
+});
+document.querySelectorAll('[data-passkey-notice]').forEach(button => {
+  button.addEventListener('click', () => status(button.dataset.passkeyNotice));
 });
 refresh().catch(error => status(error.message));
