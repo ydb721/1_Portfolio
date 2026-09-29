@@ -277,7 +277,6 @@
     .private-space li button { margin-left:8px; }
     body.passkey-signed-in > .private-page-title { display:none; }
     body.passkey-signed-in > .private-space { order:-1; padding-top:78px; padding-bottom:12px; }
-    body.passkey-signed-in > .private-space.add-form-open { padding-top:235px; }
     .private-space .private-toolbar { position:absolute; top:14px; left:24px; right:24px; display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:12px; }
     .private-space .private-toolbar .toolbar-title { color:#1e1b4b; font-size:28px; font-weight:800; margin:0; padding:4px 14px; background:var(--primary-soft); border-radius:6px; text-align:center; white-space:nowrap; }
     .private-space .passkey-list-anchor { position:relative; justify-self:start; }
@@ -300,7 +299,7 @@
     .private-space .passkey-warning { margin:12px auto 0; text-align:center; color:var(--text-sub); font-size:13.5px; font-weight:600; white-space:nowrap; }
     @media(max-width:700px) { .private-space .passkey-warning { white-space:normal; word-break:keep-all; } }
     @media(max-width:900px) {
-      body.passkey-signed-in > .private-space,body.passkey-signed-in > .private-space.add-form-open { padding-top:24px; }
+      body.passkey-signed-in > .private-space { padding-top:24px; }
       .private-space .private-toolbar { position:static; display:flex; flex-wrap:wrap; margin:0 0 16px; }
       .private-space .private-toolbar .toolbar-title { flex:1 1 100%; order:-1; width:fit-content; margin:0 auto 8px; }
       .private-space .passkey-list-anchor { margin:0 auto; }
@@ -337,6 +336,8 @@
     .private-space .passkey-recovery-guide p { margin:0; font-size:12px; font-weight:400; line-height:1.7; color:var(--text-sub); }
     .private-space .signed-in-controls { min-width:0; max-width:100%; flex-wrap:wrap; }
     .private-space .signed-in-controls .signed-in-account { max-width:100%; white-space:normal; overflow-wrap:anywhere; }
+    .private-space .passkey-add-anchor { position:relative; flex:none; }
+    .private-space #passkey-add { position:absolute; top:calc(100% + 8px); right:0; z-index:6; width:min(280px,calc(100vw - 96px)); margin:0; box-shadow:0 12px 28px rgba(30,27,75,.16); }
   </style>
 </head>
 <body>
@@ -484,14 +485,16 @@
         <h2 id="private-title-signed-in" class="toolbar-title">🔒 My Private Space 🔑</h2>
         <div class="signed-in-controls">
           <p class="signed-in-account"><strong id="passkey-account"></strong></p>
-          <button class="secondary" id="passkey-show-add" type="button" aria-expanded="false" aria-controls="passkey-add">추가</button>
-          <button class="secondary" id="passkey-logout" type="button">로그아웃</button>
-        </div>
-      </div>
+          <div class="passkey-add-anchor"><button class="secondary" id="passkey-show-add" type="button" aria-expanded="false" aria-controls="passkey-add">추가</button>
       <form id="passkey-add" hidden>
         <label>패스키 이름<input name="name" required maxlength="40" placeholder="예: 예비 보안 키"></label>
         <button type="submit">등록</button>
       </form>
+          </div>
+          <button class="secondary" id="passkey-logout" type="button">로그아웃</button>
+        </div>
+      </div>
+
       <div id="passkey-notes" class="note-grid"></div>
       
     </div>
