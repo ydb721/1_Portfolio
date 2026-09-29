@@ -338,6 +338,10 @@
     .private-space .signed-in-controls .signed-in-account { max-width:100%; white-space:normal; overflow-wrap:anywhere; }
     .private-space .passkey-add-anchor { position:relative; flex:none; }
     .private-space #passkey-add { position:absolute; top:calc(100% + 8px); right:0; z-index:6; width:min(280px,calc(100vw - 96px)); margin:0; box-shadow:0 12px 28px rgba(30,27,75,.16); }
+    .private-space #passkey-add { grid-template-columns:minmax(0,1fr) auto; align-items:center; }
+    .private-space #passkey-add label { grid-column:1 / -1; color:var(--text-title); font-size:13px; font-weight:700; }
+    .private-space #passkey-add input { min-width:0; height:42px; font-size:13px; }
+    .private-space #passkey-add button { width:auto; height:42px; padding:0 12px; font-size:13px; }
   </style>
 </head>
 <body>
@@ -487,7 +491,8 @@
           <p class="signed-in-account"><strong id="passkey-account"></strong></p>
           <div class="passkey-add-anchor"><button class="secondary" id="passkey-show-add" type="button" aria-expanded="false" aria-controls="passkey-add">추가</button>
       <form id="passkey-add" hidden>
-        <label>패스키 이름<input name="name" required maxlength="40" placeholder="예: 예비 보안 키"></label>
+        <label for="passkey-add-name">패스키 이름</label>
+        <input id="passkey-add-name" name="name" required maxlength="40" placeholder="예: 예비 보안 키">
         <button type="submit">등록</button>
       </form>
           </div>
