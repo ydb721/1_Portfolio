@@ -263,7 +263,10 @@
     body:not(.passkey-signed-in):not(.public-preview-open) > header,
     body:not(.passkey-signed-in):not(.public-preview-open) > #public-cards,
     body:not(.passkey-signed-in):not(.public-preview-open) > footer { display:none; }
-    .private-space .public-preview-link { display:block; width:fit-content; margin:16px auto 0; padding:0; border:0; background:transparent; color:var(--text-title); font-size:13px; font-weight:400; text-align:center; text-decoration:underline; }
+    .private-description-row { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; column-gap:12px; row-gap:4px; margin:20px auto 0; }
+    .private-description-row .private-description { margin:0; }
+    .private-space .public-preview-link { display:inline-block; flex:none; margin:0; padding:0; border:0; background:transparent; color:#1d4ed8; font-size:13px; font-weight:700; text-align:center; text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; }
+    .private-space .public-preview-link:hover { color:#1e40af; }
     .private-space .public-preview-link:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
     body.passkey-signed-in .public-preview-link { display:none; }
     .private-space button:focus-visible,.private-space input:focus-visible { outline:3px solid #b45309; outline-offset:3px; }
@@ -465,8 +468,10 @@
       <p class="passkey-warning">마지막 패스키는 삭제할 수 없습니다. 모든 패스키를 잃어버렸다면 현재 복구 방법이 없습니다.</p>
     </div>
     <p id="passkey-status" role="status" aria-live="polite"></p>
-    <p class="private-description">가상의 프로젝트 메모, 지원 후보, 회고를 보관합니다. 공개 소개의 세 장의 카드는 누구나 그대로 볼 수 있습니다.</p>
+    <div class="private-description-row">
+      <p class="private-description">가상의 프로젝트 메모, 지원 후보, 회고를 보관합니다. 공개 소개의 세 장의 카드는 누구나 그대로 볼 수 있습니다.</p>
       <button class="public-preview-link" id="passkey-public-preview" type="button" aria-expanded="false" aria-controls="public-cards">로그인 없이 공개 카드 보기</button>
+    </div>
   </section>
 
   <!-- 하단 안내 영역 -->
