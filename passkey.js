@@ -39,7 +39,7 @@ function creationOptions(options) {
     excludeCredentials: options.excludeCredentials.map(item => ({ ...item, id: bytes(item.id) })) };
 }
 function requestOptions(options, usePhone = false) {
-  return { ...options, ...(usePhone ? { hints: ['hybrid'] } : {}), challenge: bytes(options.challenge),
+  return { ...options, hints: usePhone ? ['hybrid'] : ['client-device'], challenge: bytes(options.challenge),
     allowCredentials: usePhone ? [] : options.allowCredentials.map(item => ({ ...item, id: bytes(item.id) })) };
 }
 async function register(handle, name) {
