@@ -9,14 +9,6 @@ async function api(path, options = {}) {
   return data;
 }
 const post = (path, data) => api(path, { method: 'POST', body: JSON.stringify(data) });
-function showAuthView(view) {
-  const isLogin = view === 'login';
-  $('#passkey-login-panel').hidden = !isLogin;
-  $('#passkey-register-panel').hidden = isLogin;
-  $('#register-guidance').hidden = isLogin;
-  $('#passkey-show-login').setAttribute('aria-pressed', String(isLogin));
-  $('#passkey-show-register').setAttribute('aria-pressed', String(!isLogin));
-}
 function setPublicPreview(open) {
   document.body.classList.toggle('public-preview-open', open);
   const button = $('#passkey-public-preview');
@@ -51,7 +43,7 @@ async function register(handle, name) {
     clientDataJSON: encoded(response.response.clientDataJSON), attestationObject: encoded(response.response.attestationObject) } };
   await post('/api/gateway?view=register-verify', { ceremony, credential });
   status('등록했습니다. 이제 패스키로 로그인해 주십시오. 패스키 목록은 로그인한 뒤 볼 수 있습니다.');
-  if (handle) { $('#passkey-login [name="handle"]').value = handle; showAuthView('login'); }
+  if (handle) { $('#passkey-login [name="handle"]').value = handle; $('#passkey-login [name="handle"]').focus(); }
   return true;
 }
 async function login(handle, usePhone = false) {
@@ -104,13 +96,19 @@ async function action(event, callback) {
   } catch (error) { status(error.message); }
   finally { button.disabled = false; }
 }
-$('#passkey-login').addEventListener('submit', event => {
-  const usePhone = event.submitter?.value === 'phone';
-  action(event, form => login(form.get('handle'), usePhone));
+$('#passkey-login').addEventListener('submit', event => action(event, form => login(form.get('handle'))));
+$('#passkey-phone-login').addEventListener('click', async event => {
+  const form = $('#passkey-login');
+  if (!form.reportValidity()) return;
+  const button = event.currentTarget;
+  button.disabled = true;
+  try {
+    if (!window.PublicKeyCredential || !window.isSecureContext) throw Error('HTTPS와 패스키 지원 브라우저가 필요합니다.');
+    await login(new FormData(form).get('handle'), true);
+  } catch (error) { status(error.message); }
+  finally { button.disabled = false; }
 });
 $('#passkey-register').addEventListener('submit', event => action(event, form => register(form.get('handle'), form.get('name'))));
-$('#passkey-show-login').addEventListener('click', () => showAuthView('login'));
-$('#passkey-show-register').addEventListener('click', () => showAuthView('register'));
 $('#passkey-public-preview').addEventListener('click', () => {
   const open = !document.body.classList.contains('public-preview-open');
   setPublicPreview(open);
