@@ -343,6 +343,9 @@
     .private-space #passkey-add label { grid-column:1 / -1; color:var(--text-title); font-size:13px; font-weight:700; }
     .private-space #passkey-add input { min-width:0; height:42px; font-size:13px; }
     .private-space #passkey-add button { width:auto; height:42px; padding:0 12px; font-size:13px; }
+    .private-space .passkey-auth #register-guidance { width:100%; margin:24px auto 0; padding:16px 0 0; text-align:center; }
+    .private-space .passkey-auth #register-guidance h3 { margin:0 0 6px; color:var(--text-title); font-size:13px; font-weight:700; text-align:center; }
+    .private-space .passkey-auth #register-guidance p { margin:0; color:var(--text-sub); font-size:12px; font-weight:400; line-height:1.7; text-align:center; }
   </style>
 </head>
 <body>
@@ -471,7 +474,10 @@
         <div class="passkey-auth-section">
           <h3>새 패스키 등록</h3>
           <form id="passkey-register"><label><span class="field-label">새 계정명</span><input name="handle" required pattern="[a-z0-9_-]{3,24}" placeholder="새 계정 이름"></label><label><span class="field-label">패스키 이름</span><input name="name" required maxlength="40" placeholder="패스키 이름 (예: PC)"></label><button type="submit">등록</button></form>
-          <button id="register-guidance" class="notice-link" type="button" data-passkey-notice="등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.">등록 안내</button>
+          <div id="register-guidance" class="passkey-recovery-guide">
+            <h3>※ 패스키 등록 안내 ※</h3>
+            <p>등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
+          </div>
         </div>
       </div>
     </div>
