@@ -26,13 +26,13 @@ async function bodyOf(req) {
   return JSON.parse(value || '{}');
 }
 const examples = (handle = '') => handle === 'sample_2' ? [
-  { title: '프로젝트 메모', body: '가상의 일정 관리 화면을 설계합니다. 사용자가 오늘 할 일을 먼저 확인하도록 목록을 날짜순으로 정리하고, 완료한 항목은 별도 영역으로 이동합니다. 작은 화면에서도 추가·수정 버튼을 쉽게 찾을 수 있는지 점검합니다.' },
-  { title: '지원 후보', body: '데이터 엔지니어 직무: SQL로 수집 데이터를 정리하고 품질을 검사한 경험을 중심으로 공고를 비교합니다. 서비스 운영 직무: 장애 원인을 기록하고 재발 방지 절차를 설명할 수 있는 사례를 준비합니다.' },
-  { title: '회고', body: '가상의 일정 관리 화면에서 완료 표시가 눈에 잘 띄지 않았습니다. 다음 수정에서는 상태 색상과 텍스트를 함께 표시하고, 키보드만으로 항목을 추가하고 완료할 수 있는지도 확인합니다.' },
+  { title: '프로젝트', body: '가상의 일정 관리 화면을 설계합니다. 사용자가 오늘 할 일을 먼저 확인하도록 목록을 날짜순으로 정리하고, 완료한 항목은 별도 영역으로 이동합니다. 작은 화면에서도 추가·수정 버튼을 쉽게 찾을 수 있는지 점검합니다.' },
+  { title: '관심 직무', body: '데이터 엔지니어 직무: SQL로 수집 데이터를 정리하고 품질을 검사한 경험을 중심으로 공고를 비교합니다. 서비스 운영 직무: 장애 원인을 기록하고 재발 방지 절차를 설명할 수 있는 사례를 준비합니다.' },
+  { title: '리뷰', body: '가상의 일정 관리 화면에서 완료 표시가 눈에 잘 띄지 않았습니다. 다음 수정에서는 상태 색상과 텍스트를 함께 표시하고, 키보드만으로 항목을 추가하고 완료할 수 있는지도 확인합니다.' },
 ] : [
-  { title: '프로젝트 메모', body: '포트폴리오의 공개 카드는 로그인 없이 볼 수 있도록 유지함.\n비공개 영역은 패스키 인증 뒤에만 열리며, 로그아웃하거나 새로고침한 상태에서도 다른 계정의 메모가 보이지 않는지 확인할 계획임.\n제출 전에는 휴대전화와 집 PC에서 각각 등록·로그인·로그아웃 흐름을 다시 점검할 예정임.' },
-  { title: '지원 후보', body: "Java 백엔드 직무: 서버 API와 데이터베이스 설계 경험을 중심으로 공고를 비교함.\n웹 보안 직무: 인증 흐름과 접근 제어 구현을 설명할 수 있는 사례를 보강함.\n지원 순서는 필수 기술과 제 프로젝트의 증빙이 얼마나 맞는지 확인한 뒤 정할 예정임." },
-  { title: '회고', body: "학원 PC에서는 블루투스와 Windows Hello PIN을 사용할 수 없어 패스키 테스트를 끝내지 못함.\n휴대전화에서는 계정 등록과 비공개 카드 표시를 확인함.\n집 PC에서 로그인을 재검증하고, 결과를 기기별로 구분해 과제 보고서에 기록할 예정임." },
+  { title: '프로젝트', body: '포트폴리오의 공개 카드는 로그인 없이 볼 수 있도록 유지함.\n비공개 영역은 패스키 인증 뒤에만 열리며, 로그아웃하거나 새로고침한 상태에서도 다른 계정의 메모가 보이지 않는지 확인할 계획임.\n제출 전에는 휴대전화와 집 PC에서 각각 등록·로그인·로그아웃 흐름을 다시 점검할 예정임.' },
+  { title: '관심 직무', body: "Java 백엔드 직무: 서버 API와 데이터베이스 설계 경험을 중심으로 공고를 비교함.\n웹 보안 직무: 인증 흐름과 접근 제어 구현을 설명할 수 있는 사례를 보강함.\n지원 순서는 필수 기술과 제 프로젝트의 증빙이 얼마나 맞는지 확인한 뒤 정할 예정임." },
+  { title: '리뷰', body: "학원 PC에서는 블루투스와 Windows Hello PIN을 사용할 수 없어 패스키 테스트를 끝내지 못함.\n휴대전화에서는 계정 등록과 비공개 카드 표시를 확인함.\n집 PC에서 로그인을 재검증하고, 결과를 기기별로 구분해 과제 보고서에 기록할 예정임." },
 ];
 // Replace only the sample notes created by earlier versions; preserve any other notes.
 const formalExamples = (notes, handle) => {
@@ -44,9 +44,10 @@ const formalExamples = (notes, handle) => {
     ["학원 PC에서는 블루투스와 Windows Hello PIN을 사용할 수 없어 패스키 테스트를 끝내지 못했습니다. 휴대전화에서는 계정 등록과 비공개 카드 표시를 확인했습니다. 집 PC에서 로그인을 재검증하고, 결과를 기기별로 구분해 과제 보고서에 기록하겠습니다.", `${handle}의 가상 회고: 근거를 먼저 적고 다음 행동을 정하기.`, `${handle}의 가상 회고: 근거를 먼저 적고 다음 행동을 정합니다.`],
   ];
   return notes.map(note => {
-    const index = updated.findIndex(item => item.title === note.title);
+    const title = ({ '프로젝트 메모': '프로젝트', '지원 후보': '관심 직무', '회고': '리뷰' })[note.title] || note.title;
+    const index = updated.findIndex(item => item.title === title);
     return index >= 0 && (previous[index].includes(note.body) || note.body === defaultNotes[index].body)
-      ? { ...note, body: updated[index].body } : note;
+      ? { ...note, title, body: updated[index].body } : { ...note, title };
   });
 };
 
@@ -73,7 +74,7 @@ export default async function handler(req, res) {
       if (requested && requested !== me.handle) return respond(res, 403, { error: '다른 계정의 자료는 볼 수 없습니다.' });
       const notes = JSON.parse(await redis('GET', k.notes(me.id)) || '[]');
       const updated = formalExamples(notes, me.handle);
-      if (updated.some((note, index) => note.body !== notes[index].body)) {
+      if (updated.some((note, index) => note.body !== notes[index].body || note.title !== notes[index].title)) {
         await redis('SET', k.notes(me.id), JSON.stringify(updated));
       }
       return respond(res, 200, { handle: me.handle, notes: updated });
