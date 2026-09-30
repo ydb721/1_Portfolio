@@ -41,7 +41,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 20px;
     }
 
@@ -231,17 +231,148 @@
         animation: none !important;
       }
     }
+    /* 공개 소개의 카드 스타일을 유지하고, 잠긴 자리의 경계를 분명히 표시한다. */
+    .private-space { position:relative; background:#f8faff; border:2px solid #c7d2fe; border-radius:18px; padding:24px; margin-top:12px; box-shadow:0 4px 14px rgba(79,70,229,.08); }
+    body > .private-page-title { order:-2; align-self:center; color:#1e1b4b; font-size:28px; font-weight:800; width:fit-content; margin:0 auto -10px; padding:4px 14px; background:var(--primary-soft); border-radius:6px; text-align:center; }
+    .private-space h3 { color:var(--text-title); font-size:17px; margin:16px 0 6px; }
+    .private-description { color:var(--text-sub); font-size:13.5px; font-weight:600; text-align:center; margin:20px auto 0; }
+    .private-space p { margin:8px 0; }
+    .private-space form { display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px; margin:16px 0; }
+    .private-space label { display:grid; gap:5px; font-weight:700; }
+    .private-space input { font:inherit; border:1px solid #a5b4fc; border-radius:7px; padding:9px; max-width:210px; background:#fff; }
+    .private-space button { border:1px solid #a5b4fc; border-radius:7px; padding:10px 14px; background:#e0e7ff; color:var(--text-title); font:inherit; font-weight:700; cursor:pointer; }
+    .private-space button.secondary { background:#fff; border:1px solid #a5b4fc; color:var(--text-title); }
+    .passkey-auth { width:100%; max-width:520px; margin:20px auto 0; padding:24px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; }
+    .passkey-auth-section { width:100%; max-width:440px; margin-left:auto; margin-right:auto; }
+    .passkey-auth-section + .passkey-auth-section { margin-top:40px; }
+    .passkey-auth-section h3 { margin:0 0 14px; text-align:left; font-size:17px; }
+    .private-space .passkey-auth form { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:10px; margin:0; }
+    .private-space #passkey-register { grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto; }
+    .private-space .passkey-auth label { position:relative; width:100%; font-size:13px; }
+    .private-space .passkey-auth label .field-label { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .private-space .passkey-auth input { display:block; width:100%; max-width:none; margin-top:0; font-weight:400; }
+    .private-space .passkey-auth input,.private-space .passkey-auth button[type="submit"] { height:44px; box-sizing:border-box; }
+    .private-space .passkey-auth button[type="submit"] { min-width:76px; padding:0 10px; }
+    .private-space .passkey-auth #register-guidance { width:max-content; max-width:calc(100vw - 48px); margin:12px 0 0; position:relative; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:12px; font-weight:400; text-align:center; }
+    @media(max-width:700px) {
+      .private-space .passkey-auth #register-guidance { width:auto; left:auto; transform:none; white-space:normal; }
+      .private-space .passkey-auth form,.private-space #passkey-register { grid-template-columns:1fr; }
+      .private-space .passkey-auth button[type="submit"] { width:100%; }
+    }
+    body:not(.passkey-signed-in) > .private-space { order:-1; }
+    .private-description-row { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; column-gap:12px; row-gap:4px; margin:20px auto 0; }
+    .private-description-row .private-description { margin:0; }
+    .private-space button:focus-visible { outline:2px solid #a5b4fc; outline-offset:3px; }
+    .private-space input:focus { outline:2px solid #a5b4fc; outline-offset:3px; border-color:#a5b4fc; }
+    .private-space button:disabled { opacity:.5; cursor:wait; }
+    .private-space .small { color:var(--text-sub); font-size:13.5px; font-weight:600; }
+    .private-space .note-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin:16px 0; }
+    .private-space .note-grid article { display:flex; flex-direction:column; min-height:280px; overflow:hidden; background:#e0e7ff; border:2px solid #c7d2fe; border-radius:18px; box-shadow:0 4px 14px rgba(79,70,229,.1); }
+    .private-space .note-grid .note-header { position:relative; padding:12px 58px; border-bottom:2px solid #c7d2fe; background:rgba(255,255,255,.35); text-align:center; }
+    .private-space .note-grid h3 { margin:0; font-size:22px; font-weight:900; line-height:1.25; letter-spacing:-.5px; }
+    .private-space .note-grid h3 span { display:inline-block; padding:1px 8px; color:#fff; background:#1e1b4b; }
+    .private-space .note-grid .note-body { flex:1; display:flex; align-items:center; justify-content:center; padding:14px 16px; }
+    .private-space .note-grid .note-body p { margin:0; color:var(--text-sub); font-size:13px; font-weight:500; line-height:1.5; text-align:center; white-space:pre-line; }
+    .private-space .note-edit { position:absolute; top:50%; right:10px; width:30px; min-width:30px; height:30px; padding:0; transform:translateY(-50%); font-size:18px; line-height:1; }
+    .private-space .note-edit-form { width:100%; min-height:280px; display:flex; flex-direction:column; gap:10px; padding:16px; }
+    .private-space .note-edit-form input, .private-space .note-edit-form textarea { display:block; box-sizing:border-box; width:100%; max-width:100%; margin:0; border:1px solid #a5b4fc; border-radius:10px; background:#fff; color:var(--text-main); font:inherit; }
+    .private-space .note-edit-form input { padding:9px 10px; font-weight:800; text-align:center; }
+    .private-space .note-edit-form textarea { flex:1; min-height:150px; padding:10px; resize:vertical; line-height:1.5; }
+    .private-space .note-edit-actions { display:flex; width:100%; justify-content:center; align-items:center; gap:8px; margin:0 auto; }
+    .private-space .note-edit-actions button { width:76px; padding:7px 10px; }
+    .private-space ul { padding-left:20px; }
+    .private-space li { margin:8px 0; }
+    .private-space li button { margin-left:8px; }
+    body.passkey-signed-in > .private-page-title { display:none; }
+    body.passkey-signed-in > .private-space { order:-1; padding-top:78px; padding-bottom:12px; }
+    .private-space .private-toolbar { position:absolute; top:14px; left:24px; right:24px; display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:12px; }
+    .private-space .private-toolbar .toolbar-title { color:#1e1b4b; font-size:28px; font-weight:800; margin:0; padding:4px 14px; background:var(--primary-soft); border-radius:6px; text-align:center; white-space:nowrap; }
+    .private-space .passkey-list-anchor { position:relative; justify-self:start; }
+    .private-space #passkey-show-list { background:#fff; font-size:13px; }
+    .private-space .passkey-list-panel { position:absolute; z-index:5; top:calc(100% + 8px); left:0; width:min(340px,calc(100vw - 48px)); max-height:min(50vh,380px); overflow:auto; padding:12px 16px; border:1px solid #c7d2fe; border-radius:12px; background:#fff; color:var(--text-main); box-shadow:0 12px 28px rgba(30,27,75,.16); }
+    .private-space #passkey-list { list-style:none; margin:0; padding:0; }
+    .private-space #passkey-list li { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0; padding:10px 0; border-bottom:1px solid #e0e7ff; font-size:14px; }
+    .private-space #passkey-list li:last-child { border-bottom:0; }
+    .private-space #passkey-list li span { min-width:0; overflow-wrap:anywhere; }
+    .private-space #passkey-list li button { flex:none; margin:0; padding:6px 10px; font-size:13px; }
+    .private-space #passkey-list-status { margin:10px 0 0; color:var(--text-sub); font-size:13.5px; text-align:center; }
+    .private-space .signed-in-controls { justify-self:end; display:flex; align-items:center; justify-content:flex-end; gap:10px; }
+    .private-space .signed-in-controls .signed-in-account { margin:0; color:var(--text-title); font-size:16px; white-space:nowrap; }
+    .private-space .signed-in-controls #passkey-logout { background:#fff; }
+    .private-space .signed-in-controls #passkey-show-add { background:#fff; }
+    .private-space .signed-in-controls #passkey-show-add,.private-space .signed-in-controls #passkey-logout { width:88px; padding:9px 6px; font-size:13px; text-align:center; }
+    .private-space #passkey-add { position:absolute; top:67px; right:24px; z-index:2; display:grid; gap:8px; width:min(280px, calc(100% - 48px)); margin:0; padding:14px; border:1px solid #c7d2fe; border-radius:10px; background:#fff; box-shadow:0 6px 18px rgba(79,70,229,.12); }
+    .private-space #passkey-add label { width:100%; font-size:13px; }
+    .private-space #passkey-add input,.private-space #passkey-add button { width:100%; max-width:none; }
+    .private-space .passkey-warning { margin:12px auto 0; text-align:center; color:var(--text-sub); font-size:13.5px; font-weight:600; white-space:nowrap; }
+    @media(max-width:700px) { .private-space .passkey-warning { white-space:normal; word-break:keep-all; } }
+    @media(max-width:900px) {
+      body.passkey-signed-in > .private-space { padding-top:24px; }
+      .private-space .private-toolbar { position:static; display:flex; flex-wrap:wrap; margin:0 0 16px; }
+      .private-space .private-toolbar .toolbar-title { flex:1 1 100%; order:-1; width:fit-content; margin:0 auto 8px; }
+      .private-space .passkey-list-anchor { margin:0 auto; }
+      .private-space .passkey-list-panel { left:50%; transform:translateX(-50%); }
+      .private-space .signed-in-controls { flex:1 1 100%; justify-content:center; padding-top:0; }
+      .private-space #passkey-add { position:static; width:100%; margin:0 0 16px; box-shadow:none; }
+    }
+    .private-space [hidden] { display:none !important; }
+    #passkey-status { min-height:24px; color:var(--text-sub); font-size:13.5px; font-weight:600; text-align:center; }
+    #passkey-status:empty { display:none; }
+    @media(max-width:700px) { .private-space .note-grid { grid-template-columns:1fr; } .private-space li button { display:block; margin:7px 0; } }
+    .public-space { background:#f8faff; border:2px solid #c7d2fe; border-radius:18px; padding:24px; box-shadow:0 4px 14px rgba(79,70,229,.08); }
+    .public-space header { margin-bottom:24px; }
+    .public-guidance { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:6px 16px; margin-top:16px; padding:0; }
+    .private-space .private-toolbar { grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); }
+    .private-space .private-toolbar .toolbar-title { justify-self:center; font-size:clamp(20px,2.5vw,28px); white-space:normal; }
+    .private-space .signed-in-controls { gap:8px; }
+    .private-space .signed-in-controls #passkey-show-add { width:52px; flex:none; }
+    .private-space .signed-in-controls #passkey-logout { width:72px; flex:none; }
+    .private-space .notice-link { background:transparent; border:0; padding:4px 6px; color:var(--text-title); font-size:12px; font-weight:400; text-decoration:underline; text-underline-offset:3px; }
+    .private-space .passkey-auth #register-guidance { display:block; width:fit-content; max-width:100%; left:auto; transform:none; margin:12px auto 0; white-space:normal; }
+    .passkey-help { text-align:center; margin-top:8px; }
+    #passkey-dialog { margin:auto; width:min(420px,calc(100vw - 40px)); max-height:calc(100dvh - 40px); overflow:auto; padding:24px; border:1px solid #c7d2fe; border-radius:16px; background:#f8faff; color:var(--text-main); box-shadow:0 16px 48px rgba(30,27,75,.2); }
+    #passkey-dialog::backdrop { background:rgba(30,27,75,.3); }
+    #passkey-dialog h2 { font-size:18px; color:var(--text-title); }
+    #passkey-dialog p { margin:16px 0 22px; font-size:14px; font-weight:400; line-height:1.8; overflow-wrap:anywhere; white-space:pre-line; }
+    #passkey-dialog form { text-align:right; }
+    #passkey-dialog button { padding:8px 22px; border:1px solid #a5b4fc; border-radius:7px; background:#e0e7ff; color:var(--text-title); font:inherit; cursor:pointer; }
+    #passkey-dialog button:focus-visible { outline:2px solid #a5b4fc; outline-offset:3px; }
+    @media(max-width:900px) { .private-space .private-toolbar .toolbar-title { font-size:28px; } }
+    @media(max-width:420px) { .private-space .signed-in-controls { flex-wrap:wrap; } .public-space { padding:20px 16px; } }
+    .private-space .passkey-recovery-guide { margin-top:12px; padding-top:12px; border-top:1px solid #e0e7ff; }
+    .private-space .passkey-recovery-guide h3 { margin:0 0 6px; font-size:13px; font-weight:700; }
+    .private-space .passkey-recovery-guide p { margin:0; font-size:12px; font-weight:400; line-height:1.7; color:var(--text-sub); }
+    .private-space .signed-in-controls { min-width:0; max-width:100%; flex-wrap:wrap; }
+    .private-space .signed-in-controls .signed-in-account { max-width:100%; white-space:normal; overflow-wrap:anywhere; }
+    .private-space .passkey-add-anchor { position:relative; flex:none; }
+    .private-space #passkey-add { position:absolute; top:calc(100% + 8px); right:0; z-index:6; width:min(280px,calc(100vw - 96px)); margin:0; box-shadow:0 12px 28px rgba(30,27,75,.16); }
+    .private-space #passkey-add { grid-template-columns:minmax(0,1fr) auto; align-items:center; }
+    .private-space #passkey-add label { grid-column:1 / -1; color:var(--text-title); font-size:13px; font-weight:700; }
+    .private-space #passkey-add input { min-width:0; height:42px; font-size:13px; }
+    .private-space #passkey-add button { width:auto; height:42px; padding:0 12px; font-size:13px; }
+    .private-space .passkey-auth #register-guidance { width:100%; margin:24px auto 0; padding:16px 0 0; text-align:center; }
+    .private-space .passkey-auth #register-guidance h3 { margin:0 0 6px; color:var(--text-title); font-size:13px; font-weight:700; text-align:center; }
+    .private-space .passkey-auth #register-guidance p { margin:0; color:var(--text-sub); font-size:12px; font-weight:400; line-height:1.7; text-align:center; }
+    .private-space .passkey-auth-section:last-child { max-width:none; }
+    .private-space .passkey-auth-section:last-child > h3,
+    .private-space #passkey-register { max-width:440px; margin-left:auto; margin-right:auto; }
+    .private-space .passkey-auth #register-guidance p { white-space:nowrap; }
+    @media(max-width:700px) {
+      .private-space .passkey-auth #register-guidance p { white-space:normal; }
+    }
+    .private-space .note-grid article .note-body p { width:100%; text-align:left; }
   </style>
 </head>
 <body>
 
+  <section class="public-space" aria-labelledby="public-title">
   <!-- 페이지 상단 헤더 -->
   <header>
-    <h1 class="static-title">✨ My Strengths & Passions ✨</h1>
+    <h1 id="public-title" class="static-title">✨ My Strengths & Passions ✨</h1>
   </header>
 
   <!-- 핵심 역량 3D 카드 섹션 -->
-  <section>
+  <section id="public-cards">
     <div class="cards-grid">
       
       <!-- 카드 1: 성실함 -->
@@ -340,10 +471,70 @@
     </div>
   </section>
 
-  <!-- 하단 안내 영역 -->
-  <footer>
-    <span>💡 카드를 클릭하면 상세 이야기를 확인할 수 있습니다.</span>
+  <footer class="public-guidance">
+    <span>공개 소개의 세 장의 카드는 누구나 그대로 볼 수 있습니다.</span>
+    <span>카드를 클릭하면 상세 이야기를 확인할 수 있습니다.</span>
   </footer>
+  </section>
+
+  <!-- 비공개 자료의 본문은 HTML/JavaScript에 넣지 않고 인증 후 API에서 받는다. -->
+  <h2 id="private-title" class="private-page-title">🔒 My Private Space 🔑</h2>
+  <section class="private-space" aria-labelledby="private-title">
+    <div id="passkey-locked">
+      <div class="passkey-auth">
+        <div class="passkey-auth-section">
+          <h3>기존 패스키로 로그인</h3>
+          <form id="passkey-login"><label for="passkey-login-handle"><span class="field-label">계정명</span><input id="passkey-login-handle" name="handle" required pattern="[a-z0-9_-]{3,24}" autocomplete="username webauthn" placeholder="계정 이름 입력"></label><button type="submit">로그인</button></form>
+        </div>
+        <div class="passkey-auth-section">
+          <h3>새 패스키 등록</h3>
+          <form id="passkey-register"><label><span class="field-label">새 계정명</span><input name="handle" required pattern="[a-z0-9_-]{3,24}" placeholder="새 계정 이름"></label><label><span class="field-label">패스키 이름</span><input name="name" required maxlength="40" placeholder="패스키 이름 (예: PC)"></label><button type="submit">등록</button></form>
+          <div id="register-guidance" class="passkey-recovery-guide">
+            <h3>※ 패스키 등록 안내 ※</h3>
+            <p>등록 후에는 새 패스키로 로그인해 주십시오. 이미 등록된 계정명은 다시 등록할 수 없습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="passkey-unlocked" hidden>
+      <div class="private-toolbar">
+        <div class="passkey-list-anchor">
+          <button class="secondary" id="passkey-show-list" type="button" aria-expanded="false" aria-controls="passkey-list-panel">등록한 패스키 보기</button>
+          <div id="passkey-list-panel" class="passkey-list-panel" role="region" aria-label="등록한 패스키 목록" hidden>
+            <ul id="passkey-list"></ul>
+            <div class="passkey-recovery-guide">
+              <h3>패스키 삭제·복구 안내</h3>
+              <p>마지막 패스키는 삭제할 수 없습니다. 모든 패스키를 잃어버렸다면 현재 복구 방법이 없습니다.</p>
+            </div>
+          </div>
+        </div>
+        <h2 id="private-title-signed-in" class="toolbar-title">🔒 My Private Space 🔑</h2>
+        <div class="signed-in-controls">
+          <p class="signed-in-account"><strong id="passkey-account"></strong></p>
+          <div class="passkey-add-anchor"><button class="secondary" id="passkey-show-add" type="button" aria-expanded="false" aria-controls="passkey-add">추가</button>
+      <form id="passkey-add" hidden>
+        <label for="passkey-add-name">패스키 이름</label>
+        <input id="passkey-add-name" name="name" required maxlength="40" placeholder="예: 예비 보안 키">
+        <button type="submit">등록</button>
+      </form>
+          </div>
+          <button class="secondary" id="passkey-logout" type="button">로그아웃</button>
+        </div>
+      </div>
+
+      <div id="passkey-notes" class="note-grid"></div>
+      
+    </div>
+    <div class="private-description-row">
+      <p class="private-description">프로젝트, 관심 직무, 리뷰를 보관합니다.</p>
+    </div>
+  </section>
+
+  <dialog id="passkey-dialog" aria-labelledby="passkey-dialog-title" aria-describedby="passkey-dialog-message">
+    <h2 id="passkey-dialog-title">패스키 안내</h2>
+    <p id="passkey-dialog-message"></p>
+    <form method="dialog"><button autofocus>확인</button></form>
+  </dialog>
 
   <!-- 카드 뒤집기 인터랙션 및 키보드 접근성 스크립트 -->
   <script>
@@ -364,5 +555,6 @@
       });
     });
   </script>
+  <script src="/passkey.js" defer></script>
 </body>
 </html>

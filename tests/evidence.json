@@ -1,0 +1,40 @@
+{
+  "kind": "합성 키 HTTP 테스트. 실제 기기 등록 증거 아님.",
+  "registrationChallenges": [
+    "AaSseW3FUhgI…",
+    "baI4SCVhkdX9…"
+  ],
+  "loginChallenges": [
+    "cbskxKldSPBH…",
+    "rX2rXlHtKY7R…"
+  ],
+  "storedPublicKeyJWK": {
+    "kty": "EC",
+    "x": "M-h7fQkloNXMTY2baRIR9n3ueW44YAZNjVOJtoikMPs",
+    "y": "NB7A9SOquc16YpUiPZgyBitaKrJRIjcOylUB2juQjV8",
+    "crv": "P-256"
+  },
+  "requests": {
+    "anonymousNotes": 401,
+    "authenticatedNotes": 200,
+    "otherAccountBothDirections": 403,
+    "otherCredentialBothDirections": 403,
+    "reusedQuestion": 403,
+    "failedSignature": 403,
+    "deletedCredential": 403,
+    "remainingCredential": 200,
+    "lastCredentialDelete": 409,
+    "oldSessionAfterLogout": 401,
+    "recordsBeforeAfterCrossRequests": {
+      "alpha": [
+        3,
+        3
+      ],
+      "beta": [
+        3,
+        3
+      ]
+    },
+    "ignoredOwnerQueryResponse": "current session account"
+  }
+}
