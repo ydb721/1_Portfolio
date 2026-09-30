@@ -14,6 +14,7 @@ async function api(path, options = {}) {
   return data;
 }
 const post = (path, data) => api(path, { method: 'POST', body: JSON.stringify(data) });
+const put = (path, data) => api(path, { method: 'PUT', body: JSON.stringify(data) });
 function setPasskeyList(open) {
   if (open) setAddForm(false);
   $('#passkey-list-panel').hidden = !open;
@@ -66,11 +67,14 @@ async function refresh() {
   if (!me.handle) { setPasskeyList(false); $('#passkey-notes').replaceChildren(); $('#passkey-list').replaceChildren(); setAddForm(false); return; }
   $('#passkey-account').textContent = `계정: ${me.handle}`;
   const notes = await api('/api/gateway?view=notes');
-  $('#passkey-notes').replaceChildren(...notes.notes.map(note => {
-    const card = document.createElement('article'), header = document.createElement('div'), h = document.createElement('h3'), title = document.createElement('span'), body = document.createElement('div'), p = document.createElement('p');
+  $('#passkey-notes').replaceChildren(...notes.notes.map((note, index) => {
+    const card = document.createElement('article'), header = document.createElement('div'), h = document.createElement('h3'), title = document.createElement('span'), edit = document.createElement('button'), body = document.createElement('div'), p = document.createElement('p');
     header.className = 'note-header'; body.className = 'note-body';
     title.textContent = note.title; p.textContent = note.body;
-    h.append(title); header.append(h); body.append(p); card.append(header, body); return card;
+    edit.type = 'button'; edit.className = 'note-edit secondary'; edit.textContent = '수정';
+    edit.setAttribute('aria-label', `${note.title} 수정`);
+    edit.addEventListener('click', () => editNote(card, index, notes.notes));
+    h.append(title); header.append(h, edit); body.append(p); card.append(header, body); return card;
   }));
   $('#passkey-list').replaceChildren(...me.passkeys.map(key => {
     const li = document.createElement('li'), label = document.createElement('span'), button = document.createElement('button');
@@ -83,6 +87,23 @@ async function refresh() {
     });
     li.append(label, button); return li;
   }));
+}
+function editNote(card, index, notes) {
+  const note = notes[index], form = document.createElement('form'), title = document.createElement('input'), body = document.createElement('textarea'), actions = document.createElement('div'), save = document.createElement('button'), cancel = document.createElement('button');
+  form.className = 'note-edit-form';
+  title.name = 'title'; title.value = note.title; title.maxLength = 30; title.required = true; title.setAttribute('aria-label', '카드 제목');
+  body.name = 'body'; body.value = note.body; body.maxLength = 1500; body.required = true; body.rows = 9; body.setAttribute('aria-label', '카드 내용');
+  actions.className = 'note-edit-actions'; save.type = 'submit'; save.textContent = '저장'; cancel.type = 'button'; cancel.className = 'secondary'; cancel.textContent = '취소';
+  cancel.addEventListener('click', () => refresh().catch(error => status(error.message)));
+  form.addEventListener('submit', async event => {
+    event.preventDefault(); save.disabled = true;
+    try {
+      const updated = notes.map((item, position) => position === index ? { title: title.value, body: body.value } : item);
+      await put('/api/gateway?view=notes', { notes: updated });
+      await refresh(); status('비공개 카드를 저장했습니다.');
+    } catch (error) { status(error.message); save.disabled = false; }
+  });
+  actions.append(save, cancel); form.append(title, body, actions); card.replaceChildren(form); title.focus();
 }
 async function action(event, callback) {
   event.preventDefault();

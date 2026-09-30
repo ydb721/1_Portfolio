@@ -6,6 +6,9 @@ const nonce = () => b64(randomBytes(32));
 const digest = token => createHash('sha256').update(token).digest('hex');
 const goodHandle = value => typeof value === 'string' && /^[a-z0-9_-]{3,24}$/.test(value);
 const goodName = value => typeof value === 'string' && value.trim().length > 0 && value.length <= 40;
+const goodNotes = value => Array.isArray(value) && value.length === 3 && value.every(note =>
+  note && typeof note.title === 'string' && note.title.trim().length > 0 && note.title.trim().length <= 30 &&
+  typeof note.body === 'string' && note.body.trim().length > 0 && note.body.trim().length <= 1500);
 const respond = (res, code, value) => res.status(code).json(value);
 const cookie = (token, secure) => `intro_session=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=604800${secure ? '; Secure' : ''}`;
 const currentCookie = req => /(?:^|;\s*)intro_session=([A-Za-z0-9_-]+)/.exec(req.headers.cookie || '')?.[1];
@@ -78,6 +81,14 @@ export default async function handler(req, res) {
         await redis('SET', k.notes(me.id), JSON.stringify(updated));
       }
       return respond(res, 200, { handle: me.handle, notes: updated });
+    }
+    if (req.method === 'PUT' && view === 'notes') {
+      if (!me) return respond(res, 401, { error: '패스키로 로그인한 뒤 저장할 수 있습니다.' });
+      const body = await bodyOf(req);
+      if (!goodNotes(body.notes)) return respond(res, 400, { error: '제목과 내용을 입력해 주십시오.' });
+      const notes = body.notes.map(note => ({ title: note.title.trim(), body: note.body.trim() }));
+      await redis('SET', k.notes(me.id), JSON.stringify(notes));
+      return respond(res, 200, { saved: true, handle: me.handle, notes });
     }
     if (req.method === 'POST' && view === 'register-options') {
       const body = await bodyOf(req), handle = me?.handle ?? body.handle;

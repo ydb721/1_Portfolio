@@ -120,6 +120,15 @@ test('original public cards and passkey privacy / replay / two accounts', async 
     const loginA = await login('alpha', a1);
     assert.equal((await call('POST', 'login-verify', { ceremony: loginA.value.ceremony, credential: assertion(loginA.value.options, a1) })).status, 403);
     assert.equal((await call('GET', 'notes')).value.notes.length, 3);
+    const alphaNotes = [
+      { title: '알파 프로젝트', body: '알파 계정에서만 보이는 프로젝트 기록' },
+      { title: '알파 관심 직무', body: '알파 계정에서만 보이는 관심 직무 기록' },
+      { title: '알파 리뷰', body: '알파 계정에서만 보이는 리뷰 기록' },
+    ];
+    const savedAlpha = await call('PUT', 'notes', { account: 'beta', notes: alphaNotes });
+    assert.equal(savedAlpha.status, 200);
+    assert.equal(savedAlpha.value.handle, 'alpha'); // 요청 본문의 account 값은 신뢰하지 않는다.
+    assert.deepEqual((await call('GET', 'notes')).value.notes, alphaNotes);
     await enroll('ignored', '예비 키', a2);
     assert.equal((await call('GET', 'me')).value.passkeys.length, 2);
     const q1 = await call('POST', 'login-options', { handle: 'alpha' });
@@ -138,6 +147,13 @@ test('original public cards and passkey privacy / replay / two accounts', async 
     await call('POST', 'logout', {});
     await enroll('beta', '다른 계정 키', b1);
     await login('beta', b1);
+    const betaNotes = [
+      { title: '베타 프로젝트', body: '베타 계정에서만 보이는 프로젝트 기록' },
+      { title: '베타 관심 직무', body: '베타 계정에서만 보이는 관심 직무 기록' },
+      { title: '베타 리뷰', body: '베타 계정에서만 보이는 리뷰 기록' },
+    ];
+    assert.equal((await call('PUT', 'notes', { notes: betaNotes })).status, 200);
+    assert.deepEqual((await call('GET', 'notes')).value.notes, betaNotes);
     const alphaWithBeta = await call('POST', 'login-options', { handle: 'alpha' });
     assert.equal((await call('POST', 'login-verify', { ceremony: alphaWithBeta.value.ceremony, credential: assertion(alphaWithBeta.value.options, b1) })).status, 403);
     const betaBefore = (await call('GET', 'notes')).value.notes.length;
@@ -146,6 +162,7 @@ test('original public cards and passkey privacy / replay / two accounts', async 
     assert.equal((await call('GET', 'notes', null, '&owner=alpha')).value.handle, 'beta');
     await call('POST', 'logout', {});
     await login('alpha', a2);
+    assert.deepEqual((await call('GET', 'notes')).value.notes, alphaNotes);
     const betaWithAlpha = await call('POST', 'login-options', { handle: 'beta' });
     assert.equal((await call('POST', 'login-verify', { ceremony: betaWithAlpha.value.ceremony, credential: assertion(betaWithAlpha.value.options, a2) })).status, 403);
     const alphaBefore = (await call('GET', 'notes')).value.notes.length;
