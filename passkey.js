@@ -71,7 +71,7 @@ async function refresh() {
     const card = document.createElement('article'), header = document.createElement('div'), h = document.createElement('h3'), title = document.createElement('span'), edit = document.createElement('button'), body = document.createElement('div'), p = document.createElement('p');
     header.className = 'note-header'; body.className = 'note-body';
     title.textContent = note.title; p.textContent = note.body;
-    edit.type = 'button'; edit.className = 'note-edit secondary'; edit.textContent = '수정';
+    edit.type = 'button'; edit.className = 'note-edit secondary'; edit.textContent = '✎';
     edit.setAttribute('aria-label', `${note.title} 수정`);
     edit.addEventListener('click', () => editNote(card, index, notes.notes));
     h.append(title); header.append(h, edit); body.append(p); card.append(header, body); return card;
